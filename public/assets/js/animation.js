@@ -358,5 +358,5 @@ fileInput.addEventListener("change", () => {
 });
 
 function ghost3() {
-  window.location.href = "main.html";
+  window.location.href = "main/";
 }
