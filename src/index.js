@@ -1,48 +1,51 @@
-import express from "express";
 import { createServer } from "node:http";
-import { join, dirname } from "node:path";
+import { join } from "node:path";
 import { hostname } from "node:os";
-import { fileURLToPath } from "node:url";
 import wisp from "wisp-server-node";
+import Fastify from "fastify";
+import fastifyStatic from "@fastify/static";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
-import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
-import serveStatic from "serve-static";
-
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const publicDir = join(__dirname, "..", "public");
-
+const __dirname = path.dirname(__filename);
+const publicDir = path.join(__dirname, "..", "public");
 const PORT = process.env.PORT || 4040;
 const HOST = process.env.HOST || "0.0.0.0";
 const NODE_ENV = process.env.NODE_ENV || "production";
-
-const app = express();
-
-// Set COOP/COEP headers
-app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-  res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
-  next();
+const fastify = Fastify({
+  serverFactory: (handler) => {
+    return createServer()
+      .on("request", (req, res) => {
+        res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+        res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+        handler(req, res);
+      })
+      .on("upgrade", (req, socket, head) => {
+        if (req.url.endsWith("/wisp/")) wisp.routeRequest(req, socket, head);
+        else socket.end();
+      });
+  },
+  logger: NODE_ENV === "development",
 });
-app.use("/uv/", express.static(uvPath));
-
-// Serve static files
-app.use("/", serveStatic(publicDir));
-app.use("/epoxy", serveStatic(epoxyPath));
-app.use("/baremux", serveStatic(baremuxPath));
-
-// Route: index.html
-app.get("/", (req, res) => {
-  res.sendFile("index.html", { root: publicDir });
+fastify.register(fastifyStatic, {
+  root: publicDir,
+  prefix: "/",
+  decorateReply: true,
 });
 
-// Route: favicon proxy
-app.get("/favicon-proxy", async (req, res) => {
+fastify.get("/", (req, reply) => {
+  return reply.sendFile("index.html", publicDir);
+});
+
+fastify.get("/favicon-proxy", async (req, reply) => {
   try {
     const { url } = req.query;
-    if (!url)
-      return res.status(400).json({ error: "URL parameter is required" });
+
+    if (!url) {
+      return reply.code(400).send({ error: "URL parameter is required" });
+    }
 
     const validServices = [
       "www.google.com/s2/favicons",
@@ -57,8 +60,9 @@ app.get("/favicon-proxy", async (req, res) => {
           service.split("/")[0] || urlObj.href.includes(service)
     );
 
-    if (!isValidService)
-      return res.status(403).json({ error: "Invalid favicon service" });
+    if (!isValidService) {
+      return reply.code(403).send({ error: "Invalid favicon service" });
+    }
 
     const response = await fetch(url, {
       headers: {
@@ -69,53 +73,62 @@ app.get("/favicon-proxy", async (req, res) => {
     });
 
     if (!response.ok) {
-      return res
-        .status(response.status)
-        .json({ error: "Failed to fetch favicon" });
+      return reply
+        .code(response.status)
+        .send({ error: "Failed to fetch favicon" });
     }
 
     const contentType = response.headers.get("content-type") || "image/x-icon";
     const imageBuffer = await response.arrayBuffer();
 
-    res.setHeader("Content-Type", contentType);
-    res.setHeader("Cache-Control", "public, max-age=86400");
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    reply.header("Content-Type", contentType);
+    reply.header("Cache-Control", "public, max-age=86400");
+    reply.header("Access-Control-Allow-Origin", "*");
 
-    return res.send(Buffer.from(imageBuffer));
+    return reply.send(Buffer.from(imageBuffer));
   } catch (error) {
     console.error("Favicon proxy error:", error);
-    return res.status(500).json({ error: "Internal server error" });
+    return reply.code(500).send({ error: "Internal server error" });
   }
 });
 
-// Error handler
-app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).json({ error: "Internal Server Error" });
+fastify.register(fastifyStatic, {
+  root: epoxyPath,
+  prefix: "/epoxy/",
+  decorateReply: false,
 });
 
-// Create HTTP server with upgrade handling
-const server = createServer(app);
+fastify.register(fastifyStatic, {
+  root: baremuxPath,
+  prefix: "/baremux/",
+  decorateReply: false,
+});
 
-server.on("upgrade", (req, socket, head) => {
-  if (req.url.endsWith("/wisp/")) {
-    wisp.routeRequest(req, socket, head);
-  } else {
-    socket.end();
+fastify.setErrorHandler((error, request, reply) => {
+  fastify.log.error(error);
+  reply.status(500).send({ error: "Internal Server Error" });
+});
+
+async function shutdown() {
+  try {
+    await fastify.close();
+    process.exit(0);
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
   }
-});
-
-// Graceful shutdown
-function shutdown() {
-  server.close(() => process.exit(0));
 }
 
 process.on("SIGINT", shutdown);
 process.on("SIGTERM", shutdown);
 
-// Start server
-server.listen(PORT, HOST, () => {
-  const address = server.address();
+fastify.listen({ port: PORT, host: HOST }, (err) => {
+  if (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+
+  const address = fastify.server.address();
   console.log(`Server running in ${NODE_ENV} mode`);
   console.log(`Listening on:`);
   console.log(`\thttp://localhost:${address.port}`);
