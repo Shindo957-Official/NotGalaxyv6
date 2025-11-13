@@ -45,7 +45,8 @@ document.addEventListener("keyup", async (e) => {
     if (proxyType === "SJ") {
       input.value = getOriginalUrl(iframe.src);
     } else if (proxyType === "UV") {
-      input.value = decodeURL(iframe.src);
+      input.value =  __uv$config.decodeUrl(iframe.src.split(__uv$config.prefix)[1]);
+
     } else {
       input.value = getOriginalUrl(iframe.src);
     }
@@ -53,16 +54,13 @@ document.addEventListener("keyup", async (e) => {
     console.log("Loading URL in", iframe.id, ":", url);
     let currentTab = document.getElementById("tab" + tabNumber);
     let tabName = currentTab?.querySelector(".tabName");
-    if (tabName) {
-      iframe.onload = () => {
-        try {
-          tabName.textContent =
-            iframe.contentDocument?.title + " (" + proxyType + ")" ||
-            "Untitled";
-        } catch {
-          tabName.textContent = "Cross-origin page";
-        }
-      };
-    }
+    iframe.onload = () => {
+      try {
+        tabName.textContent =
+          iframe.contentDocument?.title + " (" + proxyType + ")" || "Untitled";
+      } catch {
+        tabName.textContent = "Cross-origin page";
+      }
+    };
   }
 });
