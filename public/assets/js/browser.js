@@ -1,5 +1,5 @@
-const nav = document.getElementById("tabGroup");
-const body = document.getElementById("body");
+let nav = document.getElementById("tabGroup");
+let body = document.getElementById("body");
 let tabCount = 1;
 let tabNumber = 0;
 let activeTabId = null;
@@ -15,15 +15,15 @@ function setActiveTab(tab) {
   document
     .querySelectorAll(".frame")
     .forEach((f) => (f.style.display = "none"));
-  const iframe = document.getElementById("frame" + tab.id.replace("tab", ""));
+  let iframe = document.getElementById("frame" + tab.id.replace("tab", ""));
   iframe.style.display = "block";
   input.value = getOriginalUrl(iframe.src);
 }
 function newTab() {
   tabNumber++;
-  const tab = document.createElement("div");
-  const divider = document.createElement("div");
-  const iframe = document.createElement("iframe");
+  let tab = document.createElement("div");
+  let divider = document.createElement("div");
+  let iframe = document.createElement("iframe");
 
   if (tabNumber >= 2) {
     divider.className = "divider";
@@ -46,7 +46,7 @@ function newTab() {
   body.appendChild(iframe);
 
   tab.addEventListener("click", () => setActiveTab(tab));
-  const closeBtn = tab.querySelector(".close");
+  let closeBtn = tab.querySelector(".close");
   closeBtn.addEventListener("click", (e) => {
     tab.style.animation = "closeTab 0.1s ";
     tabNumber--;
@@ -58,7 +58,7 @@ function newTab() {
       input.value = "";
       if (activeTabId === tab.id) {
         //I'm lwk so smart
-        const remainingTabs = document.querySelectorAll(".tab");
+        let remainingTabs = document.querySelectorAll(".tab");
         if (remainingTabs.length > 0)
           setActiveTab(remainingTabs[remainingTabs.length - 1]);
       }
@@ -77,7 +77,7 @@ function newTab() {
         input.value = "";
         if (activeTabId === tab.id) {
           //I'm lwk so smart
-          const remainingTabs = document.querySelectorAll(".tab");
+          let remainingTabs = document.querySelectorAll(".tab");
           if (remainingTabs.length > 0)
             setActiveTab(remainingTabs[remainingTabs.length - 1]);
         }
@@ -96,15 +96,15 @@ function getOriginalUrl(url) {
   if (url.startsWith("http://") || url.startsWith("https://")) {
     if (url.includes("/scramjet/") && url.includes(location.origin)) {
       try {
-        const urlObj = new URL(url);
+        let urlObj = new URL(url);
         if (urlObj.pathname.startsWith("/scramjet/")) {
-          const encodedUrl = urlObj.pathname.substring("/scramjet/".length);
+          let encodedUrl = urlObj.pathname.substring("/scramjet/".length);
           try {
-            const decoded = decodeURIComponent(encodedUrl);
+            let decoded = decodeURIComponent(encodedUrl);
             if (decoded.startsWith("http")) {
               return decoded;
             }
-            const base64Decoded = atob(encodedUrl);
+            let base64Decoded = atob(encodedUrl);
             if (base64Decoded.startsWith("http")) {
               return base64Decoded;
             }
@@ -121,7 +121,7 @@ function getWebsiteName(url) {
       return url;
     }
 
-    const urlObj = new URL(url);
+    let urlObj = new URL(url);
     let hostname = urlObj.hostname;
 
     if (hostname.startsWith("www.")) {

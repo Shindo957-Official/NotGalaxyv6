@@ -7,15 +7,15 @@ import {
 } from "../../lithium.mjs";
 import("../../uv/uv.config.js");
 let iframe;
-const protocol = location.protocol === "https:" ? "wss://" : "ws://";
-const host = location.host;
+let protocol = location.protocol === "https:" ? "wss://" : "ws://";
+let host = location.host;
 
 setWisp(`${protocol}${host}/wisp/`);
 setTransport("epoxy");
 
 document.addEventListener("keyup", async (e) => {
   if (e.key === "Enter" || e.keyCode === 13) {
-    const tabNumber = activeTabId.replace("tab", "");
+    let tabNumber = activeTabId.replace("tab", "");
     iframe = document.getElementById("frame" + tabNumber);
     if (
       //Checks for https in url
@@ -28,7 +28,7 @@ document.addEventListener("keyup", async (e) => {
 
     console.log("Final URL:", input.value);
     let url;
-    const proxyType = localStorage.getItem("proxyType"); //Checks for proxy
+    let proxyType = localStorage.getItem("proxyType"); //Checks for proxy
     if (proxyType === "SJ") {
       url = await proxySJ(makeURL(input.value));
       console.log("set to SJ");
@@ -36,9 +36,10 @@ document.addEventListener("keyup", async (e) => {
       url = await proxyUV(makeURL(input.value));
       console.log("set to UV");
     } else {
+      localStorage.setItem("proxyType", "SJ");
+      proxyType = localStorage.getItem("proxyType");
       url = await proxySJ(makeURL(input.value));
       console.log("Not set");
-      proxyType = localStorage.setItem("SJ");
     }
     iframe.src = url;
     if (proxyType === "SJ") {
@@ -50,8 +51,8 @@ document.addEventListener("keyup", async (e) => {
     }
 
     console.log("Loading URL in", iframe.id, ":", url);
-    const currentTab = document.getElementById("tab" + tabNumber);
-    const tabName = currentTab?.querySelector(".tabName");
+    let currentTab = document.getElementById("tab" + tabNumber);
+    let tabName = currentTab?.querySelector(".tabName");
     if (tabName) {
       iframe.onload = () => {
         try {
