@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="assets/styles/browser.css" />
-    <script defer src="assets/js/browser.js"></script>
+    <script src="uv/uv.bundle.js"></script>
+    <script src="uv/uv.sw.js"></script>
+    <script src="uv/uv.config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
-    <script defer src="uv/uv.bundle.js"></script>
-    <script defer src="uv/uv.sw.js"></script>
-    <script defer src="uv/uv.config.js"></script>
+    <script defer src="assets/js/browser.js"></script>
     <script type="module" defer src="assets/js/search.js"></script>
     <script type="module" defer src="assets/js/openapps.js"></script>
     <script type="module" defer src="assets/js/navFunctions.js"></script>
@@ -49,6 +49,9 @@
             <div class="submenuItem" id="setSJ">SJ</div>
           </div>
 
+          <div id="AddShortcut" class="menuItem" onclick="AddShortcut()">
+            Add Bookmark
+          </div>
           <div id="AddShortcut" class="menuItem" onclick="AddShortcut()">
             Add Bookmark
           </div>

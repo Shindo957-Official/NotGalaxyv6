@@ -6,7 +6,6 @@ let activeTabId = null;
 let input = document.getElementById("rogoisdabest");
 
 function setActiveTab(tab) {
-  //BIG BRAIN MOMENT OHHHHHHHHHHH
   document
     .querySelectorAll(".tab")
     .forEach((t) => t.classList.remove("active"));
@@ -17,6 +16,7 @@ function setActiveTab(tab) {
     .forEach((f) => (f.style.display = "none"));
   let iframe = document.getElementById("frame" + tab.id.replace("tab", ""));
   iframe.style.display = "block";
+
   input.value = getOriginalUrl(iframe.src);
 }
 function newTab() {
@@ -57,7 +57,6 @@ function newTab() {
       iframe.remove();
       input.value = "";
       if (activeTabId === tab.id) {
-        //I'm lwk so smart
         let remainingTabs = document.querySelectorAll(".tab");
         if (remainingTabs.length > 0)
           setActiveTab(remainingTabs[remainingTabs.length - 1]);
@@ -68,7 +67,6 @@ function newTab() {
     if (e.button === 1) {
       tab.style.animation = "closeTab 0.1s ";
       tabNumber--;
-
       tab.addEventListener("animationend", () => {
         e.stopPropagation();
         tab.remove();
@@ -76,7 +74,6 @@ function newTab() {
         iframe.remove();
         input.value = "";
         if (activeTabId === tab.id) {
-          //I'm lwk so smart
           let remainingTabs = document.querySelectorAll(".tab");
           if (remainingTabs.length > 0)
             setActiveTab(remainingTabs[remainingTabs.length - 1]);
@@ -93,43 +90,27 @@ newTab();
 function getOriginalUrl(url) {
   if (!url) return "";
 
-  if (url.startsWith("http://") || url.startsWith("https://")) {
-    if (url.includes("/scramjet/") && url.includes(location.origin)) {
-      try {
-        let urlObj = new URL(url);
-        if (urlObj.pathname.startsWith("/scramjet/")) {
-          let encodedUrl = urlObj.pathname.substring("/scramjet/".length);
-          try {
-            let decoded = decodeURIComponent(encodedUrl);
-            if (decoded.startsWith("http")) {
-              return decoded;
-            }
-            let base64Decoded = atob(encodedUrl);
-            if (base64Decoded.startsWith("http")) {
-              return base64Decoded;
-            }
-          } catch (e) {}
-        }
-      } catch (e) {}
-    }
-    return url;
+  if (url.includes("/scramjet/") && url.includes(location.origin)) {
+    try {
+      let urlObj = new URL(url);
+      if (urlObj.pathname.startsWith("/scramjet/")) {
+        let encodedUrl = urlObj.pathname.substring("/scramjet/".length);
+        try {
+          console.log("SDFSDFSDFKJHSKJFSDF: " + encodedUrl);
+          let decoded = decodeURIComponent(encodedUrl);
+          if (decoded.startsWith("http")) {
+            return decoded;
+          }
+          let base64Decoded = atob(encodedUrl);
+          if (base64Decoded.startsWith("http")) {
+            return base64Decoded;
+          }
+        } catch (e) {}
+      }
+    } catch (e) {}
+  } else {
+    let decoded = __uv$config.decodeUrl(url.split(__uv$config.prefix)[1]);
+    return decoded;
   }
-}
-function getWebsiteName(url) {
-  try {
-    if (!url || (!url.startsWith("http://") && !url.startsWith("https://"))) {
-      return url;
-    }
-
-    let urlObj = new URL(url);
-    let hostname = urlObj.hostname;
-
-    if (hostname.startsWith("www.")) {
-      hostname = hostname.substring(4);
-    }
-
-    return hostname;
-  } catch (e) {
-    return url.length > 20 ? url.substring(0, 20) + "..." : url;
-  }
+  return url;
 }

@@ -151,11 +151,10 @@ export function getWisp() {
 export async function proxySJ(input) {
   const url = makeURL(input);
   return scramjet.encodeUrl(url);
-
 }
 export async function proxyUV(input) {
   const url = makeURL(input);
-   return __uv$config.prefix + __uv$config.encodeUrl(url);
+  return __uv$config.prefix + __uv$config.encodeUrl(url);
 }
 
 /**
@@ -338,25 +337,9 @@ export function getOriginalUrl(url) {
           } catch (e) {}
         }
       } catch (e) {}
+    } else {
+      iframe.src.split(__uv$config.prefix)[1];
     }
     return url;
-  }
-}
-export function getWebsiteName(url) {
-  try {
-    if (!url || (!url.startsWith("http://") && !url.startsWith("https://"))) {
-      return url;
-    }
-
-    const urlObj = new URL(url);
-    let hostname = urlObj.hostname;
-
-    if (hostname.startsWith("www.")) {
-      hostname = hostname.substring(4);
-    }
-
-    return hostname;
-  } catch (e) {
-    return url.length > 20 ? url.substring(0, 20) + "..." : url;
   }
 }
