@@ -115,22 +115,3 @@ function getOriginalUrl(url) {
   }
   return url;
 }
-let square = document.getElementById("square");
-let squares = document.getElementById("squares");
-let windowValue = "1";
-function changeIcon(){
-  if (windowValue==="1") {
-    square.style.display="none";
-    squares.style.display="flex";
-    windowValue = "0";
-    console.log(windowValue);
-
-  }else {
-    squares.style.display="none";
-    square.style.display="flex";
-    windowValue = "1";
-    console.log(windowValue);
-
-
-  }
-}
