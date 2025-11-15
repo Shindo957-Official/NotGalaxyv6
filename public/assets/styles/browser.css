@@ -320,10 +320,11 @@ body {
   user-select: none; /* Non-prefixed version, currently */
 }
 .bookmarks {
-  height: 35px;
+  height: 40px;
   width: 100%;
   border-bottom: 2px solid #000000;
   display: flex;
+  align-items: center;
   flex-direction: row;
   gap: 10px;
   padding: 5px 10px;
@@ -332,7 +333,7 @@ body {
 .bookmarklets {
   align-items: center;
   padding: 5px;
-  transition-duration: 0.4s;
+  transition-duration: 0.3s;
   font-size: 12px;
   font-family: fabrica;
   font-weight: 1000;
