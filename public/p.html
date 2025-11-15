@@ -24,7 +24,7 @@
     <div id="nav">
       <div id="tabGroup"></div>
       <div id="plusdiv" onclick="newTab()">
-        <p class="plus"><span>+</span></p>
+        <p class="plus">+</p>
       </div>
     </div>
 
@@ -38,9 +38,12 @@
       <div class="reload toolbarBtn" id="reload" onclick="reloadX()">
         <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
       </div>
-      <input id="rogoisdabest" placeholder="search" class="search" />
+      <div class="search-container">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="rogoisdabest" placeholder="Search" class="search" />
+      </div>
       <div class="more toolbarBtn" id="more">
-        <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
+        <i class="fa-solid fa-ellipsis"></i>
 
         <div id="moreMenu" class="menu">
           <div id="changeProxy" class="menuItem">Change Proxy</div>

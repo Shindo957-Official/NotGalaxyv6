@@ -1,3 +1,8 @@
+if (localStorage.getItem("onboarding") == null) {
+  location.href = "onboarding/";
+} else {
+  
+}
 let UserName = localStorage.getItem("name");
 let backgroundURL = localStorage.getItem("backgroundURL");
 if (backgroundURL == null) {
@@ -10,3 +15,4 @@ document.documentElement.style.setProperty(
   "--backgroundURL",
   `url(${backgroundURL})`
 );
+

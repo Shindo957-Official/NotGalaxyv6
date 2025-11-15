@@ -43,8 +43,8 @@ body {
 #nav {
   background-color: rgba(0, 0, 0, 0.39);
   top: 0;
-  height: 40px;
-  width: 100vw;
+  height: 50px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   gap: 5px;
@@ -59,10 +59,10 @@ body {
   align-items: center;
 }
 .tab {
-  margin-top: 5px;
+  margin-top: 15px;
   height: 35px;
-  width: 70px;
-  background-color: rgba(0, 0, 0, 0.39);
+  width: 50px;
+  background-color: rgba(44, 44, 44, 0.39);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -120,9 +120,13 @@ body {
 .close {
   margin-left: auto;
   font-family: segoe;
-  font-weight: 400;
-  font-size: 13px;
+  font-size: 15px;
   cursor: pointer;
+  opacity: 0.7;
+  transition: 0.2s;
+}
+.close:hover {
+  opacity: 1;
 }
 #plusdiv {
   height: 30px;
@@ -133,30 +137,33 @@ body {
   align-items: center;
   padding: 0px;
   border-radius: 100px;
-}
-#plusdiv:hover {
-  background-color: #66666667;
+  margin-top: 15px;
+  transition-duration: 0.2s;
 }
 .plus {
-  font-weight: 1000;
-  font-size: 25px;
-  font-family: aovel;
+  font-weight: 400;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
   margin: 0px;
   cursor: pointer;
 }
+#plusdiv:hover {
+  transform: rotate(90deg);
+}
+
 .divider {
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 5px;
+  margin-top: 15px;
   font-size: 15px;
   cursor: default;
 }
 .toolbar {
-  background-color: rgb(44, 44, 44);
+  background: #252525;
   top: 0;
-  height: 50px;
+  height: 70px;
   max-width: 100vw;
   padding-left: 10px;
   padding-right: 10px;
@@ -166,24 +173,47 @@ body {
   align-items: center;
   justify-content: center;
 }
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: rgb(44, 44, 44);
+
+  border: 1px solid #666666;
+  border-radius: 16px;
+  padding: 0 10px;
+  height: 33px;
+  transition-duration: 0.2s;
+  flex-grow: 1;
+  
+}
+
+.search-container:hover {
+  background: #3a3a3a;
+}
+
+.search-container i {
+  margin-right: 8px; 
+}
 .search {
-  background: #ffffff00;
-  border: 1px solid #ffffff1e;
+  background: transparent;
+  border: none;
   color: #fff;
   font-family: fabrica;
   outline: none;
-  border-radius: 16px;
-  height: 25px;
-  flex-grow: 1;
-  padding: 0px 10px;
-  transition-duration: 0.2s;
+  height: 100%;
+  width: 100%;
 }
-.search:hover {
-  background: #ffffff17;
+.fa-magnifying-glass {
+  font-size: 14px !important;
 }
 .fa-solid {
-  font-size: 20px;
+  font-size: 18px;
   margin: 0px;
+  transition-duration: 0.3s;
+  z-index: 1000;
+}
+.fa-solid:hover {
+  color: white;
 }
 .frame {
   height: 100%;
@@ -203,7 +233,6 @@ body {
   border-radius: 8px;
   padding: 10px;
   z-index: 100;
-  display: flex;
   flex-direction: column;
   gap: 8px;
   box-shadow: 0 0 10px #000;
@@ -213,8 +242,12 @@ body {
   transform: scaleY(0.8);
   transform-origin: top;
   transition: all 0.3s ease;
+  z-index: -1;
+  
 }
 .menu.show {
+  z-index: 100;
+  display: flex;
   max-height: 300px;
   opacity: 1;
   transform: scaleY(1);
@@ -287,15 +320,14 @@ body {
   user-select: none; /* Non-prefixed version, currently */
 }
 .bookmarks {
-  height: 20px;
+  height: 35px;
   width: 100%;
-  border-bottom: 2px solid #444;
+  border-bottom: 2px solid #000000;
   display: flex;
   flex-direction: row;
   gap: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  background-color: #b6b6b64b;
+  padding: 5px 10px;
+  background-color: #b6b6b611;
 }
 .bookmarklets {
   align-items: center;
@@ -305,31 +337,27 @@ body {
   font-family: fabrica;
   font-weight: 1000;
   max-width: 125px;
+  height: 15px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .bookmarklets:hover {
   border-radius: 5px;
-  background-color: #636363b2;
+  background-color: #333333b2;
 }
 .notice {
   position: absolute;
-  bottom: 0;
-  right: 0px;
-  height: 20px;
-  width: auto;
-  background-color: rgb(143, 250, 116);
-  display: flex;
-  align-items: center;
-  color: black;
+  bottom: 12px;
+  right: 12px;
+  padding: 6px 14px;
   font-family: fabrica;
-  padding: 5px 10px;
-  cursor: pointer;
-  animation: name duration timing-function delay iteration-count direction
-    fill-mode;
-  border-radius: 2px;
   font-size: 13px;
+  background: #8ffa74;
+  color: #000;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px #00000060;
+  cursor: pointer;
 }
 @keyframes noticeShow {
   from {
