@@ -1,16 +1,16 @@
 <html>
   <body>
-    <iframe src="/" id="i"></iframe>
-    <script>
-      const iframe = document.getElementById("i");
-      function q() {
-        console.log("iframe loaded!");
-        console.log("contentDocument:", iframe.contentDocument);
-        console.log("URL:", iframe.contentWindow.location.href);
-        let y = console.log("Title:", iframe.contentDocument?.title);
-        console.log(y);
-      }
-      
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
+      new Crate({
+          server: '1307867835237793893', // Hydra Network
+          channel: '1439004372452380742' // #plzwork
+      })
     </script>
+    <iframe
+      src="https://e.widgetbot.io/channels/1307867835237793893/1439004372452380742"
+      allow="clipboard-write; fullscreen"
+      height="600"
+      width="800"
+    ></iframe>
   </body>
 </html>

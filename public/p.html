@@ -12,7 +12,7 @@
     <script defer src="assets/js/browser.js"></script>
     <script type="module" defer src="assets/js/search.js"></script>
     <script type="module" defer src="assets/js/openapps.js"></script>
-    <script type="module" defer src="assets/js/navFunctions.js"></script>
+    <script type="module" src="assets/js/navFunctions.js"></script>
 
     <script
       src="https://kit.fontawesome.com/adc83d139e.js"
@@ -35,7 +35,7 @@
       <div class="goForward toolbarBtn" id="goForward">
         <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
       </div>
-      <div class="reload toolbarBtn" id="reload">
+      <div class="reload toolbarBtn" id="reload" onclick="reloadX()">
         <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
       </div>
       <input id="rogoisdabest" placeholder="search" class="search" />
@@ -52,9 +52,7 @@
           <div id="AddShortcut" class="menuItem" onclick="AddShortcut()">
             Add Bookmark
           </div>
-          <div id="AddShortcut" class="menuItem" onclick="AddShortcut()">
-            Add Bookmark
-          </div>
+          <div id="bugReport" class="menuItem" onclick="">Bug Report</div>
         </div>
         <div id="overlay" class=""></div>
       </div>
@@ -68,4 +66,5 @@
       </div>
     </div>
   </body>
+  <script type="module" src="assets/js/navFunctions.js"></script>
 </html>

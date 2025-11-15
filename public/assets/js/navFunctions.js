@@ -15,9 +15,6 @@ const shortcut = document.getElementById("AddShortcut");
 const iframe = document.getElementById(
   "frame" + activeTabId.replace("tab", "")
 );
-let currentTab = document.getElementById("tab" + tabNumber);
-let tabName = currentTab?.querySelector(".tabName");
-
 let PchangeNotice = document.createElement("div");
 function pchangeShow(proxyType) {
   PchangeNotice.className = "notice";
@@ -28,11 +25,11 @@ function pchangeShow(proxyType) {
     PchangeNotice.style.animation = "noticeHide 0.4s ease 1s forwards";
   });
 }
+function reloadX(){
 reload.addEventListener("click", () => {
-  iframe.contentWindow.location.reload();
-  input.value = getOriginalUrl(iframe.src);
+  iframe.src = iframe.src;
 });
-
+}
 forward.addEventListener("click", () => {
   iframe.contentWindow.history.forward();
 });
@@ -112,7 +109,7 @@ function AddShortcut() {
       // Remove from localStorage
       localStorage.removeItem("shortcutURL" + shortcutNumber);
       localStorage.removeItem("shortcutname" + shortcutNumber);
-      
+
       // Remove from DOM
       bookmark.remove();
     }
@@ -159,3 +156,4 @@ window.onload = () => {
 };
 
 window.AddShortcut = AddShortcut;
+window.reloadX =reloadX;

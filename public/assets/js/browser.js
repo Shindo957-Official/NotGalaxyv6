@@ -83,6 +83,7 @@ function newTab() {
   });
   tabCount++;
   setActiveTab(tab);
+  
 }
 
 newTab();
