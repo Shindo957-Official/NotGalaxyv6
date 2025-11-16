@@ -99,7 +99,7 @@ function getOriginalUrl(url) {
       if (urlObj.pathname.startsWith("/scramjet/")) {
         let encodedUrl = urlObj.pathname.substring("/scramjet/".length);
         try {
-          console.log("SDFSDFSDFKJHSKJFSDF: " + encodedUrl);
+          console.log("URL: " + encodedUrl);
           let decoded = decodeURIComponent(encodedUrl);
           if (decoded.startsWith("http")) {
             return decoded;

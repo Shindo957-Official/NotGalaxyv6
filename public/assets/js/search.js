@@ -60,26 +60,39 @@ document.addEventListener("keyup", async (e) => {
     }
     iframe.src = url;
     if (proxyType === "SJ") {
+      updateIframeTitle();
+
       input.value = getOriginalUrl(iframe.src);
     } else if (proxyType === "UV") {
+      updateIframeTitle();
+
       input.value = __uv$config.decodeUrl(
         iframe.src.split(__uv$config.prefix)[1]
       );
     } else {
+      updateIframeTitle();
+
       input.value = getOriginalUrl(iframe.src);
     }
 
     console.log("Loading URL in", iframe.id, ":", url);
     let currentTab = document.getElementById("tab" + tabNumber);
     let tabName = currentTab?.querySelector(".tabName");
-    iframe.onload = () => {
-      loadingHide();
-      try {
-        tabName.textContent =
-          iframe.contentDocument?.title + " (" + proxyType + ")" || "Untitled";
-      } catch {
-        tabName.textContent = "Cross-origin page";
-      }
-    };
+    function updateIframeTitle() {
+      iframe = document.getElementById(
+        "frame" + activeTabId.replace("tab", "")
+      );
+      console.log("Updating title for iframe:", iframe.id);
+      iframe.onload = () => {
+        loadingHide();
+        try {
+          tabName.textContent =
+            iframe.contentDocument?.title + " (" + proxyType + ")" ||
+            "Untitled";
+        } catch {
+          tabName.textContent = "Cross-origin page";
+        }
+      };
+    }
   }
 });

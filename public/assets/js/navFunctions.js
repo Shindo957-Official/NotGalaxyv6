@@ -12,7 +12,7 @@ const setUV = document.getElementById("setUV");
 const setSJ = document.getElementById("setSJ");
 const setAuto = document.getElementById("setAuto");
 const shortcut = document.getElementById("AddShortcut");
-const iframe = document.getElementById(
+let iframe = document.getElementById(
   "frame" + activeTabId.replace("tab", "")
 );
 let PchangeNotice = document.createElement("div");
@@ -25,16 +25,21 @@ function pchangeShow(proxyType) {
     PchangeNotice.style.animation = "noticeHide 0.4s ease 1s forwards";
   });
 }
-function reloadX(){
-reload.addEventListener("click", () => {
-  iframe.src = iframe.src;
-});
+function reloadX() {
+  reload.addEventListener("click", () => {
+    iframe = document.getElementById("frame" + activeTabId.replace("tab", ""));
+    iframe.src=iframe.src;
+  });
 }
 forward.addEventListener("click", () => {
+  iframe = document.getElementById("frame" + activeTabId.replace("tab", ""));
+
   iframe.contentWindow.history.forward();
 });
 
 back.addEventListener("click", () => {
+  iframe = document.getElementById("frame" + activeTabId.replace("tab", ""));
+
   iframe.contentWindow.history.back();
 });
 moreBtn.addEventListener("click", (e) => {
@@ -156,4 +161,4 @@ window.onload = () => {
 };
 
 window.AddShortcut = AddShortcut;
-window.reloadX =reloadX;
+window.reloadX = reloadX;
