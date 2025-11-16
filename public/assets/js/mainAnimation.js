@@ -28,11 +28,12 @@ gsap.fromTo(
     stagger: 0.1,
   }
 );
-const windowEl = document.createElement("div");
-const iframe = document.createElement("iframe");
-let windowValue = "1";
 
 function openWindow(windowSrc) {
+  const windowEl = document.createElement("div");
+  const iframe = document.createElement("iframe");
+  let windowValue = "1";
+
   windowEl.className = "window";
   windowEl.style.position = "absolute";
   windowEl.style.left = "500px";
@@ -43,22 +44,29 @@ function openWindow(windowSrc) {
     <div class="windowTop">
       <div class="windowMove"></div>
       <div class="windowControls">
-        <div class="minimize windowcontrolicon" onclick="minimizeWindow">
-          <img src="assets/img/icons/minimize-sign.png" class="windowIcons" id="minimize"/>
+        <div class="minimize windowcontrolicon">
+          <img src="assets/img/icons/minimize-sign.png" class="windowIcons" />
         </div>
-        <div class="square windowcontrolicon" onclick="changeIcon()">
+        <div class="square windowcontrolicon">
           <img src="assets/img/icons/stop.png" class="windowIcons" id="square" />
           <img src="assets/img/icons/layers.png" class="windowIcons" id="squares" />
         </div>
-        <div class="closeIcon windowcontrolicon windowcontroliconred" onclick="closeWindow()">
-          <img src="assets/img/icons/close.png" class="windowIcons" id="closeWindow"/>
+        <div class="closeIcon windowcontrolicon windowcontroliconred">
+          <img src="assets/img/icons/close.png" class="windowIcons" />
         </div>
       </div>
     </div>
     <div class="resize-handle" style="
-      position: absolute; width: 15px; height: 15px; right: 0; bottom: 0;
-      cursor: se-resize; background: transparent;"></div>
+      position: absolute; width: 20px; height: 20px; right: 0; bottom: 0;
+      cursor: se-resize; background: transparent;">
+    </div>
   `;
+  const squareBtn = windowEl.querySelector(".square");
+  squareBtn.addEventListener("click", changeIcon);
+  const closeBtn = windowEl.querySelector(".closeIcon");
+  closeBtn.addEventListener("click", closeWindow);
+  const minimizeBtn = windowEl.querySelector(".minimize");
+  minimizeBtn.addEventListener("click", minimizeWindow);
 
   iframe.className = "windowFrame";
   iframe.src = windowSrc;
@@ -75,6 +83,7 @@ function openWindow(windowSrc) {
   let offset = { x: 0, y: 0 };
 
   controls.addEventListener("mousedown", (e) => {
+    windowEl.style.transition = "0s";
     if (windowValue === "1") {
       isDragging = true;
       offset.x = e.clientX - windowEl.offsetLeft;
@@ -82,7 +91,7 @@ function openWindow(windowSrc) {
       iframe.style.pointerEvents = "none";
     } else {
       changeIcon();
-      windowEl.style.animation = "minimize 0.5s ease forwards";
+      windowEl.style.transition = "0s";
       windowEl.style.top = "0px";
       isDragging = true;
       offset.x = e.clientX - windowEl.offsetLeft;
@@ -93,6 +102,7 @@ function openWindow(windowSrc) {
 
   // --- resizing stuff
   resizeHandle.addEventListener("mousedown", (e) => {
+    windowEl.style.transition = "0s";
     isResizing = true;
     offset.x = e.clientX;
     offset.y = e.clientY;
@@ -100,6 +110,7 @@ function openWindow(windowSrc) {
     e.stopPropagation();
   });
   document.addEventListener("mousemove", (e) => {
+    windowEl.style.transition = "0s";
     if (isDragging) {
       let newX = e.clientX - offset.x;
       let newY = e.clientY - offset.y;
@@ -129,34 +140,93 @@ function openWindow(windowSrc) {
     isResizing = false;
     iframe.style.pointerEvents = "auto";
   });
-}
+  let square = windowEl.querySelector("#square");
+  let squares = windowEl.querySelector("#squares");
+  function changeIcon() {
+    if (windowValue === "1") {
+      windowEl.style.transition =
+        "width 0.3s ease, height 0.3s ease, left 0.3s ease, top 0.3s ease";
+      square.style.display = "none";
+      squares.style.display = "flex";
+      windowValue = "0";
+      console.log(windowValue);
+      windowEl.style.left = "0px";
+      windowEl.style.top = "0px";
+      windowEl.style.width = window.innerWidth + "px";
+      windowEl.style.height = window.innerHeight + "px";
+    } else {
+      windowEl.style.transition =
+        "width 0.3s ease, height 0.3s ease, left 0.3s ease, top 0.3s ease";
+      squares.style.display = "none";
+      square.style.display = "flex";
+      windowValue = "1";
+      console.log(windowValue);
+      windowEl.style.left = "500px";
+      windowEl.style.top = "200px";
+      windowEl.style.width = "900px";
+      windowEl.style.height = "500px";
+    }
+  }
+  function closeWindow() {
+    windowEl.style.animation = "closeWindow 0.2s ease forwards";
+    windowEl.addEventListener("animationend", () => {
+      windowEl.remove();
+    });
+  }
+  function minimizeWindow() {
+    const minimizedContainer = document.getElementById("minimizedContainer");
 
-// NAV BAR FUNCTIONS
-openWindow("p.html");
-let square = document.getElementById("square");
-let squares = document.getElementById("squares");
-function changeIcon() {
-  if (windowValue === "1") {
-    square.style.display = "none";
-    squares.style.display = "flex";
-    windowValue = "0";
-    console.log(windowValue);
-    windowEl.style.left = "0px";
-    windowEl.style.top = "0px";
-    windowEl.style.animation = "maximize 0.5s ease forwards";
-  } else {
-    squares.style.display = "none";
-    square.style.display = "flex";
-    windowValue = "1";
-    console.log(windowValue);
-    windowEl.style.left = "500px";
-    windowEl.style.top = "200px";
-    windowEl.style.animation = "minimize 0.5s ease forwards";
+    // Create minimized icon
+    const icon = document.createElement("div");
+    icon.className = "minimizedWindowIcon";
+    minimizedContainer.appendChild(icon);
+
+    // Animate window shrink
+    const rect = icon.getBoundingClientRect();
+    windowEl.style.transition = "all 0.3s ease";
+    windowEl.style.width = rect.width + "px";
+    windowEl.style.height = rect.height + "px";
+    windowEl.style.left = rect.left + "px";
+    windowEl.style.top = rect.top + "px";
+    windowEl.style.opacity = "0";
+
+    setTimeout(() => {
+      windowEl.style.display = "none";
+    }, 300);
+
+    const preview = document.createElement("div");
+    preview.className = "minimizedPreview";
+    preview.innerHTML = windowEl.innerHTML; 
+    document.body.appendChild(preview);
+
+    icon.addEventListener("mouseenter", (e) => {
+      preview.style.left = e.clientX + "px";
+      preview.style.top = e.clientY - preview.offsetHeight - 10 + "px";
+      preview.style.opacity = "1";
+    });
+
+    icon.addEventListener("mousemove", (e) => {
+      preview.style.left = e.clientX + "px";
+      preview.style.top = e.clientY - preview.offsetHeight - 10 + "px";
+    });
+
+    icon.addEventListener("mouseleave", () => {
+      preview.style.opacity = "0";
+    });
+
+    icon.addEventListener("click", () => {
+      windowEl.style.display = "block";
+      windowEl.style.transition = "all 0.3s ease";
+      windowEl.style.width = "900px";
+      windowEl.style.height = "500px";
+      windowEl.style.left = "500px";
+      windowEl.style.top = "200px";
+      windowEl.style.opacity = "1";
+
+      icon.remove();
+      preview.remove();
+    });
   }
 }
-function closeWindow() {
-  windowEl.style.animation = "closeWindow 0.2s ease forwards";
-  windowEl.addEventListener("animationend", () =>{
-  windowEl.remove()
-  })
-}
+// NAV BAR FUNCTIONS
+openWindow("p.html");
