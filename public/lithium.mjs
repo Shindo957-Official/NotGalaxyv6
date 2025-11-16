@@ -84,12 +84,21 @@ if (window.self === window.top) {
  * @param {string} [template="https://search.brave.com/search?q=%s"] - Search URL template.
  * @returns {string} Valid URL string.
  */
-export function makeURL(input, template = "https://google.com/search?q=%s") {
-  try {
-    return new URL(input).toString();
-  } catch (err) {}
+// Store the search engine template
+localStorage.setItem("searchEngine", "https://google.com/search?q=%s");
 
-  return template.replace("%s", encodeURIComponent(input));
+// Function to make a URL
+export function makeURL(input, template) {
+  // Use the template from argument or localStorage
+  template = template || localStorage.getItem("searchEngine");
+
+  try {
+    // Try treating the input as a URL
+    return new URL(input).toString();
+  } catch (err) {
+    // If invalid URL, treat as search query
+    return template.replace("%s", encodeURIComponent(input));
+  }
 }
 
 /**

@@ -3,7 +3,7 @@
   <head>
     <title>Settings</title>
     <link rel="stylesheet" href="../assets/styles/settings.css" />
-    <script src="../assets/js/settings.js"></script>
+    <script defer src="../assets/js/settings.js"></script>
   </head>
   <body>
     <nav id="sideNav">
@@ -26,8 +26,8 @@
           blob
         </p>
         <div>
-          <button>Launch About:Blank</button>
-          <button>Launch Blob</button>
+          <button onclick="aboutBlank()">Launch About:Blank</button>
+          <button onclick="launchBlob()">Launch Blob</button>
         </div>
       </div>
       <div class="block">
@@ -40,19 +40,19 @@
           >
         </p>
         <p>Auto About Blank</p>
-        <input type="checkbox" role="switch" class="circle" onclick="" />
+        <input type="checkbox" role="switch" class="circle" onclick="auto()" id="autoAbout"/>
         <p>Auto Blob</p>
-        <input type="checkbox" role="switch" class="circle" onclick="" />
+        <input type="checkbox" role="switch" class="circle" onclick="auto()" id="autoBlob" />
       </div>
       <div class="block">
         <h2 class="blockTitle">Tab Presets</h2>
         <p class="desc">Changes how the tab looks like</p>
         <div id="moreMenu" class="menu">
-          <div class="menuItem">Google Classroom</div>
-          <div class="menuItem">Google Drive</div>
-          <div class="menuItem">Classlink</div>
-          <div class="menuItem">Clever</div>
-          <div class="menuItem" style="color: rgb(241, 89, 89)">Reset</div>
+          <div class="menuItem" onclick="updateTitleAndFavicon('Classroom', 'https://ssl.gstatic.com/classroom/favicon.png')">Google Classroom</div>
+          <div class="menuItem" onclick="updateTitleAndFavicon('Home - Google Drive', 'https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png')">Google Drive</div>
+          <div class="menuItem" onclick="updateTitleAndFavicon('Login', '../assets/img/icons/classlink.png')">Classlink</div>
+          <div class="menuItem" onclick="updateTitleAndFavicon('Google', 'https://www.gstatic.com/images/branding/searchlogo/ico/favicon.ico')">Google</div>
+          <div class="menuItem" onclick="updateTitleAndFavicon('GalaxyV6','../favicon.ico')" style="color: rgb(241, 89, 89)">Reset</div>
         </div>
       </div>
     </div>
@@ -128,9 +128,9 @@
           The default is auto.
         </p>
         <div>
-          <button>Use Scramjet</button>
-          <button>Use Ultraviolet</button>
-          <button>Auto</button>
+          <button onclick="setProxyType('SJ')">Use Scramjet</button>
+          <button onclick="setProxyType('UV')">Use Ultraviolet</button>
+          <button onclick="setProxyType('Auto')">Auto</button>
         </div>
       </div>
       <div class="block">
@@ -140,9 +140,9 @@
           Please note that Google will <b>not</b> work with UV.
         </p>
         <div>
-          <button>Google</button>
-          <button>Brave</button>
-          <button>DuckDuckGo</button>
+          <button onclick="setSearchEngine('https://google.com/search?q=%s')">Google</button>
+          <button onclick="setSearchEngine('https://search.brave.com/search?q=%s')">Brave</button>
+          <button onclick="setSearchEngine('https://duckduckgo.com/search?q=%s')">DuckDuckGo</button>
         </div>
       </div>
     </div>
