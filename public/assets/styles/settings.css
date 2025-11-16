@@ -2,7 +2,7 @@
 body {
   background: #0d0d0d;
   color: #d7d7d7;
-  font-family: fabrica;
+  font-family: gravity;
   margin: 0;
   padding: 40px 20%;
   display: flex;
@@ -41,6 +41,7 @@ h1 {
   margin: 0 0 10px 0;
   color: #ffffff;
   margin-bottom: 0;
+  font-weight: 600;
 }
 
 .SettingDesc {
@@ -53,6 +54,8 @@ h1 {
 
 .cloak {
   margin-bottom: 30px;
+  font-family: nunito;
+  font-weight: 900;
 }
 .block {
   background: rgba(255, 255, 255, 0.04);
@@ -75,6 +78,7 @@ h1 {
   opacity: 0.75;
   line-height: 1.5;
   margin-bottom: 20px;
+  font-family: fabrica;
 }
 
 
@@ -227,7 +231,7 @@ button:hover {
 #sideNav a {
   color: #d7d7d7;
   text-decoration: none;
-  font-family: fabrica;
+  font-family: gravity;
   font-size: 14px;
   display: block;
   padding: 8px 12px;
