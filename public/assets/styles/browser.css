@@ -13,11 +13,10 @@ body {
   flex-direction: column;
   -webkit-backdrop-filter: blur(22px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.05); /* semi-transparent base */
-  backdrop-filter: blur(5px);
+  background: rgba(236, 236, 236, 0.05); /* semi-transparent base */
+  backdrop-filter: blur(10px);
   background-repeat: repeat;
   background-blend-mode: overlay;
-
 }
 @font-face {
   font-family: fabrica;
@@ -44,29 +43,27 @@ body {
   src: url(../fonts/aovel-sans/AovelSansRounded-rdDL.ttf);
 }
 * {
-    -webkit-font-smoothing: antialiased;
-
+  -webkit-font-smoothing: antialiased;
 }
 #nav {
-  background-color: rgb(0, 0, 0);
   top: 0;
-  height: 50px;
   width: 100%;
   display: flex;
   flex-direction: row;
   gap: 5px;
   align-items: center;
+  background: #000000;
 }
+
 #tabGroup {
   top: 0;
-  height: 50px;
   display: flex;
   flex-direction: row;
-  gap: 5px;
+  gap: 3px;
   align-items: center;
 }
 .tab {
-  margin-top: 15px;
+  margin-top: 10px;
   height: 35px;
   width: 50px;
   background-color: rgba(44, 44, 44, 0.39);
@@ -108,7 +105,7 @@ body {
 }
 
 .tab.active {
-  background-color: rgb(60, 60, 60);
+  background-color: #252525;
 }
 
 .favicon {
@@ -183,7 +180,7 @@ body {
 .search-container {
   display: flex;
   align-items: center;
-  background-color: rgb(44, 44, 44);
+  background-color: rgb(32, 32, 32);
 
   border: 1px solid #666666;
   border-radius: 16px;

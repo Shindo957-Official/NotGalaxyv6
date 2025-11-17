@@ -261,9 +261,8 @@ body {
 }
 .windowMove {
   border-top-left-radius: 10px;
-
   flex-grow: 1;
-  background-color: #2e2e2e;
+  background-color: #1b1b1b;
 }
 .windowControls {
   display: flex;

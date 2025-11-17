@@ -28,7 +28,7 @@ function newTab() {
   if (tabNumber >= 2) {
     divider.className = "divider";
     divider.textContent = "|";
-    // nav.appendChild(divider);
+    nav.appendChild(divider);
   }
 
   iframe.className = "frame";
