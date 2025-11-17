@@ -10,6 +10,10 @@ body {
   flex-direction: column;
   gap: 40px;
 }
+html:hover {
+  cursor: default;
+  background: #0d0d0d;
+}
 html {
   scroll-behavior: smooth;
 }
