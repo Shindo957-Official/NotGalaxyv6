@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preload" href="" />
+    <link rel="stylesheet" href="../assets/styles/ga.css" />
+    <link rel="stylesheet" href="../assets/styles/animation.css" />
+    <script src="../assets/js/a.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="../assets/js/ganimation.js" defer></script>
+  </head>
+
+  <body>
+    <div class="gamebody">
+      <div class="gamefilters">
+        <input
+          type="text"
+          id="gamesearch"
+          class="gamesearch"
+          placeholder="Search Apps or Tags"
+        />
+        <div class="genre-filters">
+          <label>
+            <input type="checkbox" class="genre-filter" value="AI" />
+            <div class="checkbox_highlight"><a>AI</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="shopping" />
+            <div class="checkbox_highlight"><a>Shopping</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="streaming" />
+            <div class="checkbox_highlight"><a>Streaming</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="gaming" />
+            <div class="checkbox_highlight"><a>Game Collection</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="cloud gaming" />
+            <div class="checkbox_highlight"><a>Cloud Gaming</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="development" />
+            <div class="checkbox_highlight"><a>Development</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="social media" />
+            <div class="checkbox_highlight"><a>Social Media</a></div>
+          </label>
+          <label>
+            <input type="checkbox" class="genre-filter" value="design" />
+            <div class="checkbox_highlight"><a>Design</a></div>
+          </label>
+        </div>
+      </div>
+      <div class="games"></div>
+    </div>
+</html>

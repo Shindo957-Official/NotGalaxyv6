@@ -81,7 +81,6 @@ function openWindow(windowSrc) {
   windowEl.style.transition = "opacity 0.25s ease, transform 0.25s ease";
   requestAnimationFrame(() => {
     windowEl.style.transform = "scale(1)";
-
     windowEl.style.opacity = "1";
   });
 
@@ -188,7 +187,6 @@ function openWindow(windowSrc) {
     allIframes.forEach((f) => (f.style.pointerEvents = "auto"));
   });
 
-  // -------------- MAXIMIZE / RESTORE -----------------
   let square = windowEl.querySelector("#square");
   let squares = windowEl.querySelector("#squares");
 
@@ -364,3 +362,59 @@ function auto() {
   }
 }
 auto();
+const dock = document.querySelector(".nav");
+const icons = [...document.querySelectorAll(".icons")];
+
+let mouseX = null;
+
+icons.forEach((icon) => {
+  icon._scale = 1;
+  icon._targetScale = 1;
+});
+
+dock.addEventListener("mousemove", (e) => {
+  const rect = dock.getBoundingClientRect();
+  mouseX = e.clientX - rect.left;
+});
+
+dock.addEventListener("mouseleave", () => {
+  mouseX = null;
+});
+
+function softFalloff(t) {
+  return t * t * (3 - 2 * t);
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  const dockRect = dock.getBoundingClientRect();
+
+  icons.forEach((icon) => {
+    const iconRect = icon.getBoundingClientRect();
+    const iconCenter = iconRect.left - dockRect.left + iconRect.width / 2;
+
+    let distance = mouseX === null ? 9999 : Math.abs(mouseX - iconCenter);
+
+    const minScale = 1;
+    const maxScale = 1.8;
+    const range = 90;
+
+    let influence = Math.max(0, 1 - distance / range);
+
+    influence = softFalloff(influence);
+
+    icon._targetScale = minScale + (maxScale - minScale) * influence;
+
+    const stiffness = 0.15;
+    const damping = 0.12;
+
+    const delta = icon._targetScale - icon._scale;
+    icon._scale += delta * stiffness;
+    icon._scale -= icon._scale * damping * 0.001;
+
+    icon.style.transform = `scale(${icon._scale})`;
+  });
+}
+
+animate();
