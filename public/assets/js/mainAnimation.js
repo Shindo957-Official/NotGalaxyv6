@@ -33,6 +33,7 @@ function openWindow(windowSrc) {
   windowEl.style.left = "25%";
   windowEl.style.top = "25%";
   windowEl.style.zIndex = ++zindex;
+  windowEl.style.transition = "opacity 0.3s ease";
 
   windowEl.innerHTML = `
     <div class="windowTop">
@@ -76,12 +77,19 @@ function openWindow(windowSrc) {
 
   windowEl.appendChild(iframe);
   document.body.appendChild(windowEl);
+  windowEl.style.transform = "scale(0.8)";
+  windowEl.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+  requestAnimationFrame(() => {
+    windowEl.style.transform = "scale(1)";
+
+    windowEl.style.opacity = "1";
+  });
 
   const controls = windowEl.querySelector(".windowMove");
   const handles = windowEl.querySelectorAll(".resize-handle");
-controls.addEventListener("dblclick", () => {
-  changeIcon(); 
-});
+  controls.addEventListener("dblclick", () => {
+    changeIcon();
+  });
 
   let isDragging = false;
   let isResizing = false;
@@ -89,7 +97,6 @@ controls.addEventListener("dblclick", () => {
   let offset = { x: 0, y: 0 };
   const allIframes = document.querySelectorAll(".windowFrame");
 
-  // -------------- DRAGGING -----------------
   controls.addEventListener("mousedown", (e) => {
     windowEl.style.transition = "0s";
     if (windowValue === "1") {
@@ -108,7 +115,6 @@ controls.addEventListener("dblclick", () => {
       offset.y = e.clientY - windowEl.offsetTop;
     }
   });
-  // -------------- RESIZING (4 corners) -----------------
   handles.forEach((handle) => {
     handle.addEventListener("mousedown", (e) => {
       e.stopPropagation();
@@ -211,15 +217,15 @@ controls.addEventListener("dblclick", () => {
     }
   }
 
-  // -------------- CLOSE -----------------
   function closeWindow() {
     windowEl.style.animation = "closeWindow 0.2s ease forwards";
     windowEl.addEventListener("animationend", () => {
       windowEl.remove();
     });
   }
-
-  // -------------- MINIMIZE -----------------
+  windowEl.addEventListener("mousedown", () => {
+    windowEl.style.zIndex = ++zindex;
+  });
   function minimizeWindow() {
     const minimizedContainer = document.getElementById("minimizedContainer");
     const icon = document.createElement("div");

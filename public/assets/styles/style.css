@@ -251,9 +251,7 @@ body {
   position: absolute;
   flex-direction: column;
   height: 50%;
-  width: 50%;
-
-}
+  width: 50%;}
 .windowTop {
   display: flex;
   flex-direction: row;
