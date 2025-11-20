@@ -54,7 +54,6 @@ function openWindow(windowSrc) {
 
     <!-- NEW: 4 corner resize handles -->
     <div class="resize-handle resize-top-left"></div>
-    <div class="resize-handle resize-top-right"></div>
     <div class="resize-handle resize-bottom-left"></div>
     <div class="resize-handle resize-bottom-right"></div>
   `;

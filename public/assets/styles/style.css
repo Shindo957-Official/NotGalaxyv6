@@ -359,11 +359,6 @@ body {
   cursor: nwse-resize;
 }
 
-.resize-top-right {
-  top: -3px;
-  right: -3px;
-  cursor: nesw-resize;
-}
 
 .resize-bottom-left {
   bottom: -3px;
