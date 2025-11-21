@@ -7,6 +7,7 @@
     <script defer src="../assets/js/settings.js"></script>
   </head>
   <body>
+    <div class="backgroundf"></div>
     <nav id="sideNav">
       <ul>
         <li><a href="#cloaks">Cloaks</a></li>
@@ -16,7 +17,6 @@
       </ul>
     </nav>
 
-    <div class="OS"></div>
     <div class="cloaks" id="cloaks">
       <h1 class="cloak">Cloaks</h1>
       <div class="block">
@@ -36,7 +36,7 @@
         <p class="desc">
           Automatically opens the website in about:blank or blob upon entering.
           <br />
-          <span style="color: red"
+          <span style="color: rgb(218, 135, 28)"
             >*You must allow pop ups for this to work.</span
           >
         </p>
@@ -105,6 +105,20 @@
         </div>
       </div>
       <div class="block">
+        <h2 class="blockTitle">Glassmorphism</h2>
+        <p class="desc">
+          Disable Glassmorphism to improve performance on lower end devices.
+        </p>
+        <input
+          type="checkbox"
+          role="switch"
+          class="circle"
+          onclick="glassToggleButton()"
+          id="toggleGlassmorphism"
+        />
+      </div>
+
+      <div class="block">
         <h2 class="blockTitle">Change Background</h2>
         <p class="desc">
           Please note that the image you upload must be under 10 megabytes.
@@ -159,11 +173,10 @@
       <div class="block">
         <h2 class="blockTitle">Change Proxy</h2>
         <p class="desc">
-          This setting changes the browser's proxy to either Ultraviolet or
-          Scramjet. <br />
-          Scramjet supports more websites however, there will be some websites
-          where Ultraviolet is superior.<br />Setting the proxy type to "auto"
-          will automatically switch the proxy for specific websites where one
+          This setting changes the browser's proxy to either UV or SJ. <br />
+          SJ supports more websites however, there will be some websites where
+          UV is superior.<br />Setting the proxy type to "auto" will
+          automatically switch the proxy for specific websites where one
           functions and the other does not. <br />
           <br />
           The default is auto.
@@ -199,9 +212,17 @@
       <h1 class="cloak">About Galaxy</h1>
       <div class="block">
         <h2 class="blockTitle">Made by Rogo :)</h2>
-        <p>(ik it's so tuff right)</p>
-        <button>Github</button>
-        <button>Discord</button>
+        <p class="arial">(ik it's so tuff right)</p>
+        <button
+          onclick="window.open('https://github.com/Galaxy-Vortex/GalaxyV6', '_blank')"
+        >
+          Github
+        </button>
+        <button
+          onclick="window.open('https://discord.com/invite/Dvh2veTWU4', '_blank')"
+        >
+          Discord
+        </button>
       </div>
     </div>
   </body>

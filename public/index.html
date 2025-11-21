@@ -58,6 +58,19 @@
           "--backgroundURL",
           `url(${backgroundURL})`
         );
+        let stored = localStorage.getItem("glassToggleStore");
+
+        if (stored === "true") {
+          document.documentElement.style.setProperty(
+            "--glassmorphismBG",
+            "rgba(0,0,0,1)"
+          );
+        } else {
+          document.documentElement.style.setProperty(
+            "--glassmorphismBG",
+            "rgba(0,0,0,0.384)"
+          );
+        }
       }, 100);
 
       setTimeout(() => clearInterval(intervalId), 10000000000000);

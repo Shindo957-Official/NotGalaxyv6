@@ -1,7 +1,3 @@
-:root {
-  /* --backgroundURL: url("../img/black.jpg"); */
-  --glassmorphismBG: rgba(240, 240, 240, 0.05);
-}
 body {
   /* background-image: var(--backgroundURL); */
   height: 100vh;

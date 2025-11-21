@@ -80,10 +80,10 @@ function checkAutoStatus() {
 }
 function loadAutoStatus() {
   console.log("Loading auto status");
-  blobChecked.checked = localStorage.getItem("autoBlob")== "true";
+  blobChecked.checked = localStorage.getItem("autoBlob") == "true";
   aboutChecked.checked = localStorage.getItem("autoAbout") == "true";
 }
-window.addEventListener("load", loadAutoStatus);	
+window.addEventListener("load", loadAutoStatus);
 
 //The blob/about:blank will be executed in mainAnimation.js
 
@@ -169,4 +169,37 @@ fileInput.addEventListener("change", () => {
     reader.readAsDataURL(file);
   }
 });
+const glassToggle = document.getElementById("toggleGlassmorphism");
 
+function glassToggleButton() {
+  console.log("Checkbox clicked");
+  localStorage.setItem("glassToggleStore", glassToggle.checked);
+  if (glassToggle.checked) {
+    document.documentElement.style.setProperty(
+      "--glassmorphismBG",
+      `rgba(0, 0, 0, 1)`
+    );
+  } else {
+    document.documentElement.style.setProperty(
+      "--glassmorphismBG",
+      `rgba(0, 0, 0, 0.384)`
+    );
+  }
+}
+function loadGlassToggle() {
+  console.log("Loading auto status");
+  glassToggle.checked = localStorage.getItem("glassToggleStore") == "true";
+    if (glassToggle.checked) {
+    document.documentElement.style.setProperty(
+      "--glassmorphismBG",
+      `rgba(0, 0, 0, 1)`
+    );
+  } else {
+    document.documentElement.style.setProperty(
+      "--glassmorphismBG",
+      `rgba(0, 0, 0, 0.384)`
+    );
+  }
+
+}
+window.addEventListener("load", loadGlassToggle);

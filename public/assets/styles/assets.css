@@ -1,3 +1,9 @@
+:root {
+  /* --backgroundURL: url("../img/black.jpg"); */
+  --glassmorphismBG: rgba(0, 0, 0, 0.384);
+  --glassmorphismBlocks: rgba(95, 95, 95, 0.219);
+}
+
 @font-face {
   font-family: fabrica;
   src: url(../fonts/fabrica-font/Fabrica-ZOjx.otf) format("woff2");

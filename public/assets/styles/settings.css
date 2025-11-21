@@ -1,6 +1,5 @@
 /* ===== GLOBAL ===== */
 body {
-  background: #0d0d0d;
   color: #d7d7d7;
   font-family: gravity;
   margin: 0;
@@ -9,10 +8,23 @@ body {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  height: 100%;
+}
+.backgroundf {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -111;
+  background: transparent;
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  background: var(--glassmorphismBG);
+  backdrop-filter: blur(10px);
 }
 html:hover {
   cursor: default;
-  background: #0d0d0d;
+  background: #ffffff00;
 }
 html {
   scroll-behavior: smooth;
@@ -42,8 +54,8 @@ h1 {
 }
 .block {
   transform: scale(0.95);
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(20px);
+  background: var(--glassmorphismBlocks);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 25px;
   width: 100%;
@@ -68,8 +80,8 @@ h1 {
 
 button {
   font-family: fabrica;
-  background: #1a1a1a;
-  border: 1px solid #333;
+  background: rgba(255, 255, 255, 0.05); /* translucent */
+  border: 1px solid #ffffff42;
   padding: 10px 20px;
   border-radius: 12px;
   font-size: 15px;
@@ -80,7 +92,7 @@ button {
 }
 
 button:hover {
-  background: #262626;
+  background: rgba(65, 65, 65, 0.322); /* translucent hover */
   border-color: #444;
   transform: translateY(-2px);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
@@ -94,7 +106,7 @@ button:hover {
   height: 32px;
   border-radius: 20px;
   border: 1px solid #444;
-  background: linear-gradient(#111, #0a0a0a);
+  background: #111;
   box-shadow: inset 0 0 4px #000;
   transition: 0.25s;
   margin-bottom: 12px;
@@ -137,7 +149,7 @@ button:hover {
   flex: 1;
   text-align: center;
   padding: 12px;
-  background: #1a1a1a;
+  background: rgba(255, 255, 255, 0.05); /* translucent */
   border-radius: 12px;
   cursor: pointer;
   transition: 0.25s;
@@ -147,7 +159,7 @@ button:hover {
 }
 
 .menuItem:hover {
-  background: #262626;
+  background: rgba(65, 65, 65, 0.322); /* translucent hover */
   transform: translateY(-2px);
 }
 .sdf {
@@ -192,12 +204,10 @@ button:hover {
   justify-content: center;
 }
 #sideNav {
-  position: fixed;
-  top: 50%;
+  position: fixed !important;
+  top: 35%;
   right: 20px;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.05); /* translucent */
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 12px;
   padding: 15px 10px;
@@ -227,7 +237,7 @@ button:hover {
 
 #sideNav a:hover,
 #sideNav a.active {
-  background: #262626;
+  background: rgba(65, 65, 65, 0.322); /* translucent hover */
   color: #ffffff;
   transform: translateX(-3px);
 }
@@ -248,7 +258,10 @@ button:hover {
 }
 #nameInput:focus {
   box-shadow: 0 0 10px rgba(119, 119, 119, 0.5);
-  background: #262626;
+  background: rgba(65, 65, 65, 0.322); /* translucent hover */
   color: #ffffff;
   transform: translatey(-3px);
+}
+.arial {
+  font-family: fabrica
 }
