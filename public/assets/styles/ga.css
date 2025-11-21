@@ -1,23 +1,28 @@
 /* ROOT & BASE SETTINGS */
 html {
   overflow-x: hidden;
-  --background-color: #0e100f;
-  --h1: #fff;
-  --h2: #fff;
-  --gradient2: #9ddbf3;
-  --gradient3: #7a7a7b;
-  --input-border: rgba(255, 255, 255, 0.2);
-  --circle-border: #333;
-  --button-background: #313131;
-  --button-background-light: #bdbdbdc9;
   --width: 1440px;
-  background-color: var(--background-color);
+
 }
 
 body {
   overflow-x: hidden;
   width: 100%;
   height: auto;
+  margin-top: 100px;
+  background: transparent;
+}
+#backgroundf {
+  top: 0;
+  right: 0;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: -111;
+  background: transparent;
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  background: rgba(0, 0, 0, 0.363);
+  backdrop-filter: blur(10px);
 }
 
 /* COMMON UTILITY */
@@ -42,7 +47,7 @@ body {
   outline: none;
   background: none;
   color: #fff;
-  background-image: url("/assets/img/search.png");
+  background-image: url("/assets/img/icons/search.png");
   background-size: 20px;
   background-position: 10px 15px;
   background-repeat: no-repeat;
@@ -89,6 +94,7 @@ body {
   cursor: pointer;
   color: #fff;
   background-color: #ffffff1a;
+
   padding: 0.7rem 0.95rem;
   border-radius: 1.25rem;
   transition: 0.5s;
@@ -279,7 +285,6 @@ body {
   inset: 0;
   width: 100%;
   height: 100%;
-  background-color: #000;
   z-index: -1;
   border: none;
 }
