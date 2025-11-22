@@ -52,14 +52,17 @@ function openWindow(windowSrc) {
       </div>
     </div>
 
+    <!-- Corners -->
     <div class="resize-handle resize-top-left"></div>
+    <div class="resize-handle resize-top-right"></div>
     <div class="resize-handle resize-bottom-left"></div>
     <div class="resize-handle resize-bottom-right"></div>
+
+    <!-- Sides -->
     <div class="resize-handle resize-top"></div>
     <div class="resize-handle resize-right"></div>
     <div class="resize-handle resize-bottom"></div>
     <div class="resize-handle resize-left"></div>
-
   `;
 
   // control buttons
@@ -80,6 +83,7 @@ function openWindow(windowSrc) {
 
   windowEl.appendChild(iframe);
   document.body.appendChild(windowEl);
+
   windowEl.style.transform = "scale(0.8)";
   windowEl.style.transition = "opacity 0.25s ease, transform 0.25s ease";
   requestAnimationFrame(() => {
@@ -89,6 +93,7 @@ function openWindow(windowSrc) {
 
   const controls = windowEl.querySelector(".windowMove");
   const handles = windowEl.querySelectorAll(".resize-handle");
+
   controls.addEventListener("dblclick", () => {
     changeIcon();
   });
@@ -98,6 +103,10 @@ function openWindow(windowSrc) {
   let currentHandle = null;
   let offset = { x: 0, y: 0 };
   const allIframes = document.querySelectorAll(".windowFrame");
+
+  // nav bar height
+  const navBar = document.querySelector(".nav");
+  const navBarHeight = navBar ? navBar.offsetHeight : 0;
 
   controls.addEventListener("mousedown", (e) => {
     windowEl.style.transition = "0s";
@@ -135,7 +144,7 @@ function openWindow(windowSrc) {
       let newY = e.clientY - offset.y;
 
       const maxX = window.innerWidth - windowEl.offsetWidth;
-      const maxY = window.innerHeight - windowEl.offsetHeight;
+      const maxY = window.innerHeight - navBarHeight - windowEl.offsetHeight;
 
       windowEl.style.left = Math.max(0, Math.min(newX, maxX)) + "px";
       windowEl.style.top = Math.max(0, Math.min(newY, maxY)) + "px";
@@ -170,22 +179,30 @@ function openWindow(windowSrc) {
         newHeight -= dy;
         newTop += dy;
       }
-      if (currentHandle.classList.contains("resize-right")) {
-        newWidth += dx;
+      if (currentHandle.classList.contains("resize-top")) {
+        newHeight -= dy;
+        newTop += dy;
+      }
+      if (currentHandle.classList.contains("resize-bottom")) {
+        newHeight += dy;
       }
       if (currentHandle.classList.contains("resize-left")) {
         newWidth -= dx;
         newLeft += dx;
       }
-      if (currentHandle.classList.contains("resize-bottom")) {
-        newHeight += dy;
+      if (currentHandle.classList.contains("resize-right")) {
+        newWidth += dx;
       }
-      if (currentHandle.classList.contains("resize-top")) {
-        newHeight -= dy;
-        newTop += dy;
-      }
+
+      // clamp minimum size
       newWidth = Math.max(200, newWidth);
       newHeight = Math.max(150, newHeight);
+
+      // clamp against bottom nav bar
+      const maxBottom = window.innerHeight - navBarHeight;
+      if (newTop + newHeight > maxBottom) {
+        newHeight = maxBottom - newTop;
+      }
 
       windowEl.style.width = newWidth + "px";
       windowEl.style.height = newHeight + "px";
@@ -202,7 +219,7 @@ function openWindow(windowSrc) {
     isResizing = false;
     allIframes.forEach((f) => (f.style.pointerEvents = "auto"));
   });
-
+        
   let square = windowEl.querySelector("#square");
   let squares = windowEl.querySelector("#squares");
 
