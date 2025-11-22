@@ -246,7 +246,7 @@ body {
   cursor: move;
 }
 .windowMove {
-  border-top-left-radius: 10px;
+  border-top-left-radius: 7px;
   flex-grow: 1;
   background-color: #1b1b1b;
 }
@@ -256,7 +256,7 @@ body {
   align-items: center;
   text-align: center;
   background-color: #2e2e2e;
-  border-top-right-radius: 10px;
+  border-top-right-radius: 7px;
 }
 
 .windowcontrolicon {
