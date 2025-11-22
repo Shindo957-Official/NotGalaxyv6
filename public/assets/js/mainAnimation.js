@@ -52,10 +52,14 @@ function openWindow(windowSrc) {
       </div>
     </div>
 
-    <!-- NEW: 4 corner resize handles -->
     <div class="resize-handle resize-top-left"></div>
     <div class="resize-handle resize-bottom-left"></div>
     <div class="resize-handle resize-bottom-right"></div>
+    <div class="resize-handle resize-top"></div>
+    <div class="resize-handle resize-right"></div>
+    <div class="resize-handle resize-bottom"></div>
+    <div class="resize-handle resize-left"></div>
+
   `;
 
   // control buttons
@@ -166,7 +170,20 @@ function openWindow(windowSrc) {
         newHeight -= dy;
         newTop += dy;
       }
-
+      if (currentHandle.classList.contains("resize-right")) {
+        newWidth += dx;
+      }
+      if (currentHandle.classList.contains("resize-left")) {
+        newWidth -= dx;
+        newLeft += dx;
+      }
+      if (currentHandle.classList.contains("resize-bottom")) {
+        newHeight += dy;
+      }
+      if (currentHandle.classList.contains("resize-top")) {
+        newHeight -= dy;
+        newTop += dy;
+      }
       newWidth = Math.max(200, newWidth);
       newHeight = Math.max(150, newHeight);
 
@@ -273,7 +290,6 @@ function openWindow(windowSrc) {
       icon.remove();
       preview.remove();
     });
-    
   }
 }
 const currentSiteUrl = window.location.href + "?redirect=true";

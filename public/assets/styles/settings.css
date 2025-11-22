@@ -9,6 +9,7 @@ body {
   flex-direction: column;
   gap: 40px;
   height: 100%;
+  padding-top: 50px;
 }
 .backgroundf {
   position: fixed;
@@ -30,7 +31,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Smoother font rendering */
 h1 {
   font-size: 45px;
   font-weight: 300;
