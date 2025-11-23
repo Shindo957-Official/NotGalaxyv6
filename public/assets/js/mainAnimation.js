@@ -23,7 +23,7 @@ gsap.fromTo(
 
 let zindex = 0;
 
-function openWindow(windowSrc) { //fuck I should've added comments; I forgot what all of this does
+function openWindow(windowSrc) {
   const snapLeft = document.getElementById("snap-left");
   const snapRight = document.getElementById("snap-right");
   let snapTarget = null;
@@ -55,13 +55,11 @@ function openWindow(windowSrc) { //fuck I should've added comments; I forgot wha
       </div>
     </div>
 
-    <!-- Corners -->
     <div class="resize-handle resize-top-left"></div>
     <div class="resize-handle resize-top-right"></div>
     <div class="resize-handle resize-bottom-left"></div>
     <div class="resize-handle resize-bottom-right"></div>
 
-    <!-- Sides -->
     <div class="resize-handle resize-top"></div>
     <div class="resize-handle resize-right"></div>
     <div class="resize-handle resize-bottom"></div>
@@ -102,6 +100,9 @@ function openWindow(windowSrc) { //fuck I should've added comments; I forgot wha
   let isDragging = false;
   let isResizing = false;
   let currentHandle = null;
+
+  let startX, startY, startW, startH, startL, startT;
+
   let offset = { x: 0, y: 0 };
   const allIframes = document.querySelectorAll(".windowFrame");
 
@@ -138,13 +139,22 @@ function openWindow(windowSrc) { //fuck I should've added comments; I forgot wha
       offset.y = e.clientY - windowEl.offsetTop;
     }
   });
+
   handles.forEach((handle) => {
     handle.addEventListener("mousedown", (e) => {
       e.stopPropagation();
       isResizing = true;
       currentHandle = handle;
-      offset.x = e.clientX;
-      offset.y = e.clientY;
+
+      startX = e.clientX;
+      startY = e.clientY;
+
+      const rect = windowEl.getBoundingClientRect();
+      startW = rect.width;
+      startH = rect.height;
+      startL = windowEl.offsetLeft;
+      startT = windowEl.offsetTop;
+
       allIframes.forEach((f) => (f.style.pointerEvents = "none"));
       windowEl.style.transition = "0s";
     });
@@ -177,66 +187,83 @@ function openWindow(windowSrc) { //fuck I should've added comments; I forgot wha
         snapRight.classList.remove("snap-active");
       }
     }
-    if (isResizing) {
-      const dx = e.clientX - offset.x;
-      const dy = e.clientY - offset.y;
 
-      let newWidth = windowEl.offsetWidth;
-      let newHeight = windowEl.offsetHeight;
-      let newLeft = windowEl.offsetLeft;
-      let newTop = windowEl.offsetTop;
+if (isResizing) {
+  const dx = e.clientX - startX;
+  const dy = e.clientY - startY;
 
-      if (currentHandle.classList.contains("resize-bottom-right")) {
-        newWidth += dx;
-        newHeight += dy;
-      }
-      if (currentHandle.classList.contains("resize-bottom-left")) {
-        newWidth -= dx;
-        newLeft += dx;
-        newHeight += dy;
-      }
-      if (currentHandle.classList.contains("resize-top-right")) {
-        newWidth += dx;
-        newHeight -= dy;
-        newTop += dy;
-      }
-      if (currentHandle.classList.contains("resize-top-left")) {
-        newWidth -= dx;
-        newLeft += dx;
-        newHeight -= dy;
-        newTop += dy;
-      }
-      if (currentHandle.classList.contains("resize-top")) {
-        newHeight -= dy;
-        newTop += dy;
-      }
-      if (currentHandle.classList.contains("resize-bottom")) {
-        newHeight += dy;
-      }
-      if (currentHandle.classList.contains("resize-left")) {
-        newWidth -= dx;
-        newLeft += dx;
-      }
-      if (currentHandle.classList.contains("resize-right")) {
-        newWidth += dx;
-      }
+  const minW = 200;
+  const minH = 150;
 
-      newWidth = Math.max(200, newWidth);
-      newHeight = Math.max(150, newHeight);
+  if (
+    currentHandle.classList.contains("resize-right") ||
+    currentHandle.classList.contains("resize-top-right") ||
+    currentHandle.classList.contains("resize-bottom-right")
+  ) {
+    let newW = startW + dx;
+    const maxW = window.innerWidth - startL; 
+    newW = Math.max(minW, Math.min(newW, maxW));
+    windowEl.style.width = newW + "px";
+  }
+ if (
+    currentHandle.classList.contains("resize-bottom") ||
+    currentHandle.classList.contains("resize-bottom-left") ||
+    currentHandle.classList.contains("resize-bottom-right")
+  ) {
+    let newH = startH + dy;
 
-      const maxBottom = window.innerHeight - navBarHeight;
-      if (newTop + newHeight > maxBottom) {
-        newHeight = maxBottom - newTop;
-      }
+    const maxBottom =
+      window.innerHeight - navBarHeight - startT;
 
-      windowEl.style.width = newWidth + "px";
-      windowEl.style.height = newHeight + "px";
-      windowEl.style.left = newLeft + "px";
-      windowEl.style.top = newTop + "px";
+    newH = Math.max(minH, Math.min(newH, maxBottom));
 
-      offset.x = e.clientX;
-      offset.y = e.clientY;
+    windowEl.style.height = newH + "px";
+  }
+
+  if (
+    currentHandle.classList.contains("resize-left") ||
+    currentHandle.classList.contains("resize-top-left") ||
+    currentHandle.classList.contains("resize-bottom-left")
+  ) {
+    let newL = startL + dx;
+    let newW = startW - dx;
+
+    if (newL < 0) {
+      newL = 0;
+      newW = startL + startW;
     }
+
+    if (newW < minW) {
+      newW = minW;
+      newL = startL + startW - minW;
+    }
+
+    windowEl.style.left = newL + "px";
+    windowEl.style.width = newW + "px";
+  }
+
+  if (
+    currentHandle.classList.contains("resize-top") ||
+    currentHandle.classList.contains("resize-top-left") ||
+    currentHandle.classList.contains("resize-top-right")
+  ) {
+    let newT = startT + dy;
+    let newH = startH - dy;
+
+    if (newT < 0) {
+      newT = 0;
+      newH = startH + startT;
+    }
+
+    if (newH < minH) {
+      newH = minH;
+      newT = startT + startH - minH;
+    }
+
+    windowEl.style.top = newT + "px";
+    windowEl.style.height = newH + "px";
+  }
+}
   });
 
   document.addEventListener("mouseup", () => {
@@ -361,7 +388,8 @@ function launchBlob() {
   const htmlContent = `
     <html>
       <head>
-        <title>Galaxy</title>
+            <title>Classroom</title>
+            <link rel="icon" type="image/x-icon" href="https://ssl.gstatic.com/classroom/favicon.png">
         <style>
           body,
           html {
@@ -395,11 +423,6 @@ function launchBlob() {
   const blobUrl = URL.createObjectURL(blob);
 
   let newWindow = window.open(blobUrl);
-  if (newWindow) {
-    newWindow.onload = () => {
-      newWindow.document.title = "Galaxy";
-    };
-  }
 }
 
 function aboutBlank() {
@@ -409,6 +432,7 @@ function aboutBlank() {
       <html>
         <head>
             <title>Classroom</title>
+            <link rel="icon" type="image/x-icon" href="https://ssl.gstatic.com/classroom/favicon.png">
         </head>
         <body>
           <iframe src="/"></iframe>
@@ -465,8 +489,8 @@ function softFalloff(t) {
   return t * t * (3 - 2 * t);
 }
 
-function animate() {
-  requestAnimationFrame(animate);
+function imacEffect() {
+  requestAnimationFrame(imacEffect);
 
   const dockRect = dock.getBoundingClientRect();
 
@@ -497,4 +521,4 @@ function animate() {
   });
 }
 
-animate();
+imacEffect();

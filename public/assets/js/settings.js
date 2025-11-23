@@ -3,7 +3,8 @@ function launchBlob() {
   const htmlContent = `
     <html>
       <head>
-        <title>Galaxy</title>
+            <title>Classroom</title>
+            <link rel="icon" type="image/x-icon" href="https://ssl.gstatic.com/classroom/favicon.png">
         <style>
           body,
           html {
@@ -37,11 +38,6 @@ function launchBlob() {
   const blobUrl = URL.createObjectURL(blob);
 
   let newWindow = window.open(blobUrl);
-  if (newWindow) {
-    newWindow.onload = () => {
-      newWindow.document.title = "Galaxy";
-    };
-  }
 }
 
 function aboutBlank() {
@@ -51,6 +47,7 @@ function aboutBlank() {
       <html>
         <head>
             <title>Classroom</title>
+            <link rel="icon" type="image/x-icon" href="https://ssl.gstatic.com/classroom/favicon.png">
         </head>
         <body>
           <iframe src="/"></iframe>

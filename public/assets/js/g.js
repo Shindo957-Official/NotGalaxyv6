@@ -94,6 +94,6 @@ document.getElementById("randomGameButton").addEventListener("click", () => {
   const games = document.querySelectorAll(".game");
   if (games.length > 0) {
     const randomIndex = Math.floor(Math.random() * games.length);
-    games[randomIndex].click(); // Trigger a click event on the chosen game
+    games[randomIndex].click(); 
   }
 });
