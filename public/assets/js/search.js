@@ -72,13 +72,12 @@ document.addEventListener("keyup", async (e) => {
         loadingShow("Loading...");
       } else {
         console.log("loading UV");
-
         url = await proxyUV(makeURL(input.value));
         loadingShow("Loading...");
       }
     } else if (proxyType === "SJ") {
       url = await proxySJ(makeURL(input.value));
-      loadingShow();
+      loadingShow("Loading...");
       console.log("set to SJ");
     } else if (proxyType === "UV") {
       url = await proxyUV(makeURL(input.value));
@@ -86,20 +85,21 @@ document.addEventListener("keyup", async (e) => {
       console.log("set to UV");
     }
     iframe.src = url;
-
     if (proxyType === "SJ") {
       updateIframeTitle();
-
+    } else if (proxyType === "UV") {
+      updateIframeTitle();
+    } else {
+      updateIframeTitle();
+    }
+    if (proxyType === "SJ") {
       input.value = getOriginalUrl(iframe.src);
     } else if (proxyType === "UV") {
       updateIframeTitle();
-
       input.value = __uv$config.decodeUrl(
         iframe.src.split(__uv$config.prefix)[1]
       );
     } else {
-      updateIframeTitle();
-
       input.value = getOriginalUrl(iframe.src);
     }
 

@@ -309,7 +309,7 @@ body {
 }
 .bookmarklets {
   align-items: center;
-  padding: 5px;
+  padding: 8px;
   transition-duration: 0.3s;
   font-size: 12px;
   font-family: fabrica;
@@ -322,7 +322,7 @@ body {
 }
 .bookmarklets:hover {
   border-radius: 5px;
-  background-color: #1f1f1fb2;
+  background-color: #7272725b;
 }
 .notice {
   position: absolute;

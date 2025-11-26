@@ -20,7 +20,7 @@ fetch("/assets/json/a.json")
       gameElement.innerHTML = `
       <div class="innergame">
       <div class="gamecontainer">
-        <img src="/assets/img/gimg/${game.image}" alt="${game.name}" class="cards" loading="lazy">
+        <img src="/assets/img/aimg/${game.image}" alt="${game.name}" class="cards" loading="lazy">
         <h3 class="cardname">${game.name}</h3>
         <h2 class="cardgenre">${game.genre}</h2>
       </div>
@@ -34,7 +34,7 @@ fetch("/assets/json/a.json")
           if(game.type) {
             xt = game.type
           } else {
-            xt="UV"
+            xt="SJ"
           }
           openApp(ute, xt);
           frame.style.zIndex = "1";

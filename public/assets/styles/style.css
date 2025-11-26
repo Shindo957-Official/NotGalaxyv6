@@ -234,8 +234,8 @@ body {
   display: flex;
   position: absolute;
   flex-direction: column;
-  height: 80%;
-  width: 80%;
+  height: 45%;
+  width: 45%;
   border-right: 1px solid #ffffff1f;
   border-left: 1px solid #ffffff1f;
   border-radius: 7px;
