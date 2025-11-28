@@ -50,7 +50,7 @@ function aboutBlank() {
             <link rel="icon" type="image/x-icon" href="https://ssl.gstatic.com/classroom/favicon.png">
         </head>
         <body>
-          <iframe src="/"></iframe>
+          <iframe src="${currentSiteUrl}"></iframe>
         </body>
         <style>
     body,iframe {
@@ -82,20 +82,6 @@ function loadAutoStatus() {
 }
 window.addEventListener("load", loadAutoStatus);
 
-//The blob/about:blank will be executed in mainAnimation.js
-
-function updateTitleAndFavicon(titleName, faviconURL) {
-  localStorage.setItem("pageTitle", titleName);
-  localStorage.setItem("pageFavicon", faviconURL);
-  document.title = titleName;
-  let link = document.querySelector("link[rel~='icon']");
-  if (!link) {
-    link = document.createElement("link");
-    link.rel = "icon";
-    document.head.appendChild(link);
-  }
-  link.href = faviconURL;
-}
 
 function loadTitleAndFavicon() {
   const savedTitle = localStorage.getItem("pageTitle");
@@ -172,24 +158,67 @@ function glassToggleButton() {
   console.log("Checkbox clicked");
   localStorage.setItem("glassToggleStore", glassToggle.checked);
   if (glassToggle.checked) {
+    document.documentElement.style.removeProperty("--glassmorphismBG");
+  } else {
     document.documentElement.style.setProperty(
       "--glassmorphismBG",
       `rgba(0, 0, 0, 1)`
     );
-  } else {
-    document.documentElement.style.removeProperty("--glassmorphismBG");
   }
 }
 function loadGlassToggle() {
   console.log("Loading auto status");
-  glassToggle.checked = localStorage.getItem("glassToggleStore") == "true";
-  if (glassToggle.checked) {
-    document.documentElement.style.setProperty(
-      "--glassmorphismBG",
-      `rgba(0, 0, 0, 1)`
-    );
+  const storedValue = localStorage.getItem("glassToggleStore");
+  if (storedValue === null) {
+    glassToggle.checked = true;
+    localStorage.setItem("glassToggleStore", "true");
   } else {
+    glassToggle.checked = storedValue === "true";
+  }
+  if (glassToggle.checked) {
     document.documentElement.style.removeProperty("--glassmorphismBG");
+  } else {
+    document.documentElement.style.setProperty("--glassmorphismBG", `rgba(0, 0, 0, 1)`);
+  }
+}window.addEventListener("load", loadGlassToggle);
+
+function antiClose() {
+  if (antiCloseButton.checked) {
+    window.addEventListener("beforeunload", function (event) {
+      event.preventDefault();
+      event.returnValue = "This message prevents teachers from closing the tab";
+    });
+    localStorage.setItem("checkAntiClose", "true");
+    console.log("Turned On");
+  } else {
+    localStorage.setItem("checkAntiClose", "false");
+    console.log("Turned Off");
   }
 }
-window.addEventListener("load", loadGlassToggle);
+function loadAntiClose() {
+  antiCloseButton.checked = localStorage.getItem("checkAntiClose") == "true";
+  if (antiCloseButton.checked) {
+    window.addEventListener("beforeunload", function (event) {
+      event.preventDefault();
+      event.returnValue = "This message prevents teachers from closing the tab";
+    });
+    localStorage.setItem("checkAntiClose", "true");
+    console.log("Turned On");
+  } else {
+    localStorage.setItem("checkAntiClose", "false");
+    console.log("Turned Off");
+  }
+}
+window.addEventListener("load", loadAntiClose);
+function updateTitleAndFavicon(titleName, faviconURL) {
+  localStorage.setItem("pageTitle", titleName);
+  localStorage.setItem("pageFavicon", faviconURL);
+  document.title = titleName;
+  let link = document.querySelector("link[rel~='icon']");
+  if (!link) {
+    link = document.createElement("link");
+    link.rel = "icon";
+    document.head.appendChild(link);
+  }
+  link.href = faviconURL;
+}

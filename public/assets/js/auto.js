@@ -1,4 +1,3 @@
-// Helper: update favicon
 function updateFavicon(href) {
   if (!href) return;
   let link = document.querySelector("link[rel~='icon']");
@@ -10,7 +9,6 @@ function updateFavicon(href) {
   link.href = href;
 }
 
-// Helper: toggle glassmorphism background
 function toggleGlass(enabled) {
   if (enabled) {
     document.documentElement.style.setProperty("--glassmorphismBG", "rgba(0,0,0,1)");
@@ -19,7 +17,6 @@ function toggleGlass(enabled) {
   }
 }
 
-// Apply stored values once on load
 function applyStoredValues() {
   const savedTitle = localStorage.getItem("pageTitle");
   if (savedTitle) document.title = savedTitle;
@@ -31,10 +28,22 @@ function applyStoredValues() {
     document.documentElement.style.setProperty("--backgroundURL", `url(${backgroundURL})`);
   }
 
-  toggleGlass(localStorage.getItem("glassToggleStore") === "true");
+  toggleGlass(localStorage.getItem("glassToggleStore") === "false");
 }
 
-// Listen for changes across tabs/windows
+function loadAntiClose() {
+  let xyz = localStorage.getItem("checkAntiClose")
+  if (xyz == "true") {
+    window.addEventListener("beforeunload", function (event) {
+      event.preventDefault();
+      event.returnValue = "This maessage prevents teachers from closing the tab";
+    });
+    localStorage.setItem("checkAntiClose", "true");
+  } else {
+    localStorage.setItem("checkAntiClose", "false");
+  }
+}
+
 window.addEventListener("storage", (event) => {
   switch (event.key) {
     case "pageTitle":
@@ -47,10 +56,14 @@ window.addEventListener("storage", (event) => {
       document.documentElement.style.setProperty("--backgroundURL", `url(${event.newValue})`);
       break;
     case "glassToggleStore":
-      toggleGlass(event.newValue === "true");
+      toggleGlass(event.newValue === "false");
       break;
+    case "checkAntiClose":
+        loadAntiClose();
   }
 });
 
-// Initialize on DOM ready
 document.addEventListener("DOMContentLoaded", applyStoredValues);
+
+
+

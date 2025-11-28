@@ -15,7 +15,8 @@
     "name": "AniWatch",
     "url": "https://ww2.aniwatch.fit/",
     "image": "3.png",
-    "genre": "Streaming"
+    "genre": "Streaming",
+    "type": "UV"
   },
   {
     "name": "AniWave",
@@ -85,10 +86,11 @@
     "genre": "AI"
   },
   {
-    "name": "NovaFork",
-    "url": "https://novafork.com/",
-    "image": "14.png",
-    "genre": "Streaming"
+    "name": "MoviesTV",
+    "url": "https://moviestv.space/",
+    "image": "27.png",
+    "genre": "Streaming",
+    "type": "UV"
   },
   {
     "name": "Paramount Plus",
@@ -134,6 +136,13 @@
     "image": "21.png",
     "genre": "Social Media",
     "type": "SJ"
+  },
+  {
+    "name": "VidLink",
+    "url": "https://vidlink.pro/",
+    "image": "28.png",
+    "genre": "Streaming",
+    "type": "UV"
   },
   {
     "name": "VS Code",

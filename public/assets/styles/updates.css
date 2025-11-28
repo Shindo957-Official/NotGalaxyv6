@@ -1,0 +1,35 @@
+body{
+  background: transparent;
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  background: var(--glassmorphismBG);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  color: white;
+  height: 100%;
+}
+.card {
+}
+h1, p {
+  font-family: nunito;
+}
+.divider {
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.379);
+}
+h2 {
+  font-family: gravity;
+}
+pre {
+  font-family: fabrica;
+  font-size: 13px;
+}
+.updateInfo {
+width: 100%;
+}
+.dividerSmall {
+  width: 40%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.379);
+
+}

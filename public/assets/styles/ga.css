@@ -93,6 +93,7 @@ body {
 }
 .gameStagger {
   border: 1px solid rgba(255, 255, 255, 0.199);
+  border-radius: 1.25rem;
 }
 /* CHECKBOX VISUAL */
 .checkbox_highlight {
@@ -215,6 +216,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 0;
 
 }
 
@@ -225,7 +227,7 @@ body {
   width: 325px;
   height: 190px;
   z-index: 2;
-  background-color: #080808;
+  background-color: #000000;
   backdrop-filter: blur(24px);
   border-radius: 10px;
   overflow: hidden;
@@ -241,9 +243,8 @@ body {
   cursor: pointer;
   transition-duration: 0.5s;
 }
-.randomcard:hover p {
-  font-size: 30px;
-  color: #fff;
+.randomcard:hover .requestIcon {
+  transform: scale(1.4);
 }
 .randomblob {
   position: absolute;
@@ -408,4 +409,8 @@ p {
 .pin-btn:hover {
     transform: scale(1.5);
 }
-
+.requestIcon {
+  height: 80px;
+  z-index: 2;
+  transition-duration: 0.3s;
+}

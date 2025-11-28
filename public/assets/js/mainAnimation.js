@@ -1,6 +1,6 @@
-if (localStorage.getItem("onboarding") == null) {
-  location.href = "onboarding/";
-}
+// if (localStorage.getItem("onboarding") == null) {
+//   location.href = "onboarding/";
+// }
 
 let UserName = localStorage.getItem("name");
 let backgroundURL = localStorage.getItem("backgroundURL");
@@ -23,18 +23,20 @@ gsap.fromTo(
 
 let zindex = 0;
 
-function openWindow(windowSrc) {
+function openWindow(windowSrc, windowLeft, windowRight, windowHeight, windowWidth) {
   const snapLeft = document.getElementById("snap-left");
   const snapRight = document.getElementById("snap-right");
   let snapTarget = null;
   const windowEl = document.createElement("div");
-  const iframe = document.createElement("embed");
+  const iframe = document.createElement("iframe");
   let windowValue = "1";
 
   windowEl.className = "window";
   windowEl.style.position = "absolute";
-  windowEl.style.left = "19%";
-  windowEl.style.top = "19%";
+  windowEl.style.left = windowLeft || "19%";
+  windowEl.style.top = windowRight || "19%";
+  windowEl.style.height = windowHeight || "45%";
+  windowEl.style.width = windowWidth || "45%";
   windowEl.style.zIndex = ++zindex;
   windowEl.style.transition = "opacity 0.3s ease";
 

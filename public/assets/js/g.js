@@ -8,7 +8,7 @@ import {
 } from "../../lithium.mjs";
 
 const PINNED_GAMES_KEY = "pinnedGameNames";
-
+const iframe = document.getElementById("frame");
 function getPinnedGames() {
   const pinnedNames = localStorage.getItem(PINNED_GAMES_KEY);
   return pinnedNames ? JSON.parse(pinnedNames) : [];
@@ -49,13 +49,17 @@ function renderGames(games) {
   const pinnedElements = [];
 
   appsContainer.innerHTML = `
-      <div class="randomcard gameStagger" id="randomGameButton">
+      <div title="Random Game"class="randomcard gameStagger" id="randomGameButton">
         <div class="randombg"></div>
         <div class="randomblob"></div>
-        <p>Surprise me!</p>
+          <img  class="requestIcon" src="/assets/img/icons/shuffle.png">
       </div>
-    `;
+      <div title="Request Game" class="randomcard gameStagger requestcard" id="requestGameButton">
+        <div class="randombg"></div>
+          <img  class="requestIcon" src="/assets/img/icons/plus.png">
+      </div>
 
+    `;
   games.forEach((game) => {
     const gameName = game.name;
     const isPinned = pinnedNames.includes(gameName);
@@ -90,10 +94,9 @@ function renderGames(games) {
           xt = game.type || "SJ";
           var ute = game.url;
           openApp(ute, xt);
-          frame.style.zIndex = "1";
+          iframe.style.zIndex = "1";
           document.documentElement.style.overflow = "hidden";
           const goBackBtn = document.getElementById("goBackBtn");
-          const iframe = document.getElementById("frame");
           goBackBtn.style.top = "20px";
           goBackBtn.addEventListener("click", () => {
             iframe.style.zIndex = "-1";
@@ -103,11 +106,10 @@ function renderGames(games) {
           });
         } else if (game.file) {
           var fil = game.file;
-          frame.style.zIndex = "1";
-          frame.src = fil;
+          iframe.style.zIndex = "9998";
+          iframe.src = fil;
           document.documentElement.style.overflow = "hidden";
           const goBackBtn = document.getElementById("goBackBtn");
-          const iframe = document.getElementById("frame");
           goBackBtn.style.top = "20px";
           goBackBtn.addEventListener("click", () => {
             iframe.style.zIndex = "-1";
@@ -148,6 +150,21 @@ function renderGames(games) {
       const randomIndex = Math.floor(Math.random() * availableGames.length);
       availableGames[randomIndex].querySelector(".innergame").click();
     }
+  });
+  document.getElementById("requestGameButton").addEventListener("click", () => {
+    console.log("HELP");
+    openApp("https://forms.gle/o3XaJw563qLt4YVn9", "SJ");
+    iframe.style.zIndex = "9998";
+    document.documentElement.style.overflow = "hidden";
+    const goBackBtn = document.getElementById("goBackBtn");
+    goBackBtn.style.top = "20px";
+    goBackBtn.addEventListener("click", () => {
+      iframe.style.zIndex = "-1";
+      iframe.src = "";
+      document.documentElement.style.overflow = "";
+      goBackBtn.style.top = "-80px";
+      iframe.src = "";
+    });
   });
 
   const searchEvent = new Event("input");

@@ -58,6 +58,24 @@
         />
       </div>
       <div class="block">
+        <h2 class="blockTitle">Anti-Close</h2>
+        <p class="desc">
+          Prevents teachers from closing this tab by launching the, "Your saves
+          may not be saved" pop up.
+          <br />
+          This works best with GoGuardian
+        </p>
+        <input
+          type="checkbox"
+          role="switch"
+          class="circle"
+          checked
+          onclick="antiClose()"
+          id="antiCloseButton"
+        />
+      </div>
+
+      <div class="block">
         <h2 class="blockTitle">Tab Presets</h2>
         <p class="desc">Changes how the tab looks like</p>
         <div id="moreMenu" class="menu">
@@ -113,6 +131,7 @@
           type="checkbox"
           role="switch"
           class="circle"
+          checked
           onclick="glassToggleButton()"
           id="toggleGlassmorphism"
         />

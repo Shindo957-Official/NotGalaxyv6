@@ -9,10 +9,9 @@ body {
   margin: 0px;
   display: flex;
   flex-direction: column;
-    -webkit-backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
   background: var(--glassmorphismBG);
   backdrop-filter: blur(10px);
-
 }
 #nav {
   top: 0;
@@ -272,7 +271,6 @@ body {
   display: none;
   background-color: transparent;
   cursor: default;
-  
 }
 #overlay.show {
   display: block;

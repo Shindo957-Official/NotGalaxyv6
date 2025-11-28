@@ -1,7 +1,7 @@
 [
   {
     "name": "Minecraft 1.3",
-    "file": "/assets/g/17.html",
+    "url": "https://lite.3kh0.net/projects/minecraft/",
     "image": "17.png",
     "genre": "Multiplayer / Open World"
   },
@@ -10,6 +10,24 @@
     "file": "/assets/g/11.html",
     "image": "11.png",
     "genre": "Incremental"
+  },
+  {
+    "name": "Blocky Snakes",
+    "file": "/assets/g/71.html",
+    "image": "71.png",
+    "genre": "Arcade / Multiplayer"
+  },
+  {
+    "name": "1v1.lol",
+    "file": "/assets/g/73.html",
+    "image": "73.png",
+    "genre": "Shooter / Multiplayer"
+  },
+  {
+    "name": "60 Sec Burger Run",
+    "file": "/assets/g/72.html",
+    "image": "72.png",
+    "genre": "Platformer"
   },
   {
     "name": "Wordle",
@@ -315,7 +333,7 @@
   },
   {
     "name": "PolyTrack",
-    "file": "/assets/g/30.html",
+    "url": "/assets/g/30.html",
     "image": "30.png",
     "genre": "Racing"
   },

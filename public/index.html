@@ -16,7 +16,7 @@
     <script defer src="assets/js/auto.js"></script>
     <script type="module" defer src="assets/js/search.js"></script>
   </head>
-  <body>
+  <body onload="checkVersion()">
     <div class="nav">
       <div class="navItems navStagger" onclick="openWindow('p.html')">
         <img title="Browser" src="assets/img/icons/browser.png" class="icons" />
@@ -59,4 +59,14 @@
     <div id="snap-left" class="snap-preview"></div>
     <div id="snap-right" class="snap-preview"></div>
   </body>
+  <script>
+    const latestVersion = "6.0";
+    const storedVersion = localStorage.getItem("galaxyVersion");
+function checkVersion() {
+    if (storedVersion !== latestVersion) {
+      openWindow("updates.html", "0%", "0%", "60%", "30%");
+      localStorage.setItem("galaxyVersion", latestVersion);
+    }
+    }
+  </script>
 </html>
