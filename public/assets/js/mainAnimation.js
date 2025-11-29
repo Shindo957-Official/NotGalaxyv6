@@ -23,7 +23,13 @@ gsap.fromTo(
 
 let zindex = 0;
 
-function openWindow(windowSrc, windowLeft, windowRight, windowHeight, windowWidth) {
+function openWindow(
+  windowSrc,
+  windowLeft,
+  windowRight,
+  windowHeight,
+  windowWidth
+) {
   const snapLeft = document.getElementById("snap-left");
   const snapRight = document.getElementById("snap-right");
   let snapTarget = null;
@@ -39,7 +45,6 @@ function openWindow(windowSrc, windowLeft, windowRight, windowHeight, windowWidt
   windowEl.style.width = windowWidth || "45%";
   windowEl.style.zIndex = ++zindex;
   windowEl.style.transition = "opacity 0.3s ease";
-
   windowEl.innerHTML = `
     <div class="windowTop">
       <div class="windowMove"></div>
@@ -73,14 +78,14 @@ function openWindow(windowSrc, windowLeft, windowRight, windowHeight, windowWidt
   const squareBtn = windowEl.querySelector(".square");
   const closeBtn = windowEl.querySelector(".closeIcon");
   const minimizeBtn = windowEl.querySelector(".minimize");
-  
+
   const overlay = windowEl.querySelector(".window-overlay");
 
   function focusCurrentWindow() {
     windowEl.style.zIndex = ++zindex;
-    
+
     const allWindows = document.querySelectorAll(".window");
-    
+
     allWindows.forEach((win) => {
       const winOverlay = win.querySelector(".window-overlay");
       if (winOverlay) {
@@ -96,7 +101,7 @@ function openWindow(windowSrc, windowLeft, windowRight, windowHeight, windowWidt
   overlay.addEventListener("mousedown", (e) => {
     focusCurrentWindow();
   });
-  
+
   focusCurrentWindow();
 
   squareBtn.addEventListener("click", changeIcon);
@@ -139,37 +144,36 @@ function openWindow(windowSrc, windowLeft, windowRight, windowHeight, windowWidt
   const navBarHeight = navBar ? navBar.offsetHeight : 0;
 
   controls.addEventListener("mousedown", (e) => {
-      focusCurrentWindow(); 
+    focusCurrentWindow();
+
+    windowEl.style.transition = "0s";
+    if (windowEl.classList.contains("snapped")) {
+      console.log("restoring");
+      windowEl.classList.remove("snapped");
+      windowEl.style.width = "900px";
+      windowEl.style.height = "500px";
+      allIframes.forEach((f) => (f.style.pointerEvents = "none"));
 
       windowEl.style.transition = "0s";
-      if ((windowEl.classList.contains("snapped"))) {
-        console.log("restoring");
-        windowEl.classList.remove("snapped");
-        windowEl.style.width = "900px";
-        windowEl.style.height = "500px";
-        allIframes.forEach((f) => (f.style.pointerEvents = "none"));
+      windowEl.style.top = "0px";
+      isDragging = true;
+      offset.x = e.clientX - windowEl.offsetLeft;
+      offset.y = e.clientY - windowEl.offsetTop;
+    } else if (windowValue === "1") {
+      allIframes.forEach((f) => (f.style.pointerEvents = "none"));
+      isDragging = true;
+      offset.x = e.clientX - windowEl.offsetLeft;
+      offset.y = e.clientY - windowEl.offsetTop;
+    } else {
+      changeIcon();
+      allIframes.forEach((f) => (f.style.pointerEvents = "none"));
 
-        windowEl.style.transition = "0s";
-        windowEl.style.top = "0px";
-        isDragging = true;
-        offset.x = e.clientX - windowEl.offsetLeft;
-        offset.y = e.clientY - windowEl.offsetTop;
-      } else if (windowValue === "1") {
-        allIframes.forEach((f) => (f.style.pointerEvents = "none"));
-        isDragging = true;
-        offset.x = e.clientX - windowEl.offsetLeft;
-        offset.y = e.clientY - windowEl.offsetTop;
-      } else {
-        changeIcon();
-        allIframes.forEach((f) => (f.style.pointerEvents = "none"));
-
-        windowEl.style.transition = "0s";
-        windowEl.style.top = "0px";
-        isDragging = true;
-        offset.x = e.clientX - windowEl.offsetLeft;
-        offset.y = e.clientY - windowEl.offsetTop;
-      }
-    
+      windowEl.style.transition = "0s";
+      windowEl.style.top = "0px";
+      isDragging = true;
+      offset.x = e.clientX - windowEl.offsetLeft;
+      offset.y = e.clientY - windowEl.offsetTop;
+    }
   });
 
   handles.forEach((handle) => {
@@ -318,7 +322,6 @@ function openWindow(windowSrc, windowLeft, windowRight, windowHeight, windowWidt
       windowEl.style.width = "50vw";
       windowEl.style.height = "calc(100% - 40px)";
     }
-
     snapTarget = null;
     snapLeft.classList.remove("snap-active");
     snapRight.classList.remove("snap-active");
@@ -360,7 +363,6 @@ function openWindow(windowSrc, windowLeft, windowRight, windowHeight, windowWidt
       windowEl.remove();
     });
   }
-  
 
   function minimizeWindow() {
     const minimizedContainer = document.getElementById("minimizedContainer");
@@ -407,14 +409,21 @@ function openWindow(windowSrc, windowLeft, windowRight, windowHeight, windowWidt
       windowEl.style.left = "25%";
       windowEl.style.top = "25%";
       windowEl.style.opacity = "1";
-      
+
       focusCurrentWindow();
 
       icon.remove();
       preview.remove();
     });
   }
-}const currentSiteUrl = window.location.href + "?redirect=true";
+      if (windowEl.style.height == "100%" && windowEl.style.width == "100%") {
+      changeIcon();
+      console.log("100%")
+    }
+
+
+}
+const currentSiteUrl = window.location.href + "?redirect=true";
 function launchBlob() {
   const htmlContent = `
     <html>
