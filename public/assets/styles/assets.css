@@ -53,3 +53,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #696969; /* darker gray */
 }
+.filler {
+  position: absolute;
+  opacity: 0;
+}

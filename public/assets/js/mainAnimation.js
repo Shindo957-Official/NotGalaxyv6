@@ -214,7 +214,7 @@ function openWindow(
       const maxY = window.innerHeight - navBarHeight - windowEl.offsetHeight;
 
       windowEl.style.left = Math.max(0, Math.min(newX, maxX)) + "px";
-      windowEl.style.top = Math.max(25, Math.min(newY, maxY)) + "px";
+      windowEl.style.top = Math.max(30, Math.min(newY, maxY)) + "px";
 
       const snapMargin = 100;
       snapTarget = null;
@@ -294,8 +294,8 @@ function openWindow(
         let newT = startT + dy;
         let newH = startH - dy;
 
-        if (newT < 25) {
-          newT = 25;
+        if (newT < 30) {
+          newT = 30;
           newH = startH + startT;
         }
 
