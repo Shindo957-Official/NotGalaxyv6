@@ -4,7 +4,6 @@ if (localStorage.getItem("onboarding") == null) {
 
 let UserName = localStorage.getItem("name");
 let backgroundURL = localStorage.getItem("backgroundURL");
-
 if (backgroundURL == null) {
   localStorage.setItem("backgroundURL", "../img/bg3.png");
 }
@@ -23,23 +22,20 @@ gsap.fromTo(
 
 let zindex = 0;
 
-function openWindow(
-  windowSrc,
-  windowLeft,
-  windowRight,
-  windowHeight,
-  windowWidth
-) {
+function openWindow( windowSrc, windowLeft, windowTop, windowHeight, windowWidth, windowType) 
+{
   const snapLeft = document.getElementById("snap-left");
   const snapRight = document.getElementById("snap-right");
   let snapTarget = null;
+  windowType = windowType || "iframe"
+  console.log(windowType)
   const windowEl = document.createElement("div");
-  const iframe = document.createElement("iframe");
+  const iframe = document.createElement(windowType);
   let windowValue = "1";
   windowEl.className = "window";
   windowEl.style.position = "absolute";
   windowEl.style.left = windowLeft || "19%";
-  windowEl.style.top = windowRight || "19%";
+  windowEl.style.top = windowTop || "19%";
   windowEl.style.height = windowHeight || "45%";
   windowEl.style.width = windowWidth || "45%";
   windowEl.style.zIndex = ++zindex;

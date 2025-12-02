@@ -189,7 +189,7 @@ export class Tab {
     this.frame.setAttribute("class", "w-full h-full border-0 fixed");
     this.frame.setAttribute("title", "Proxy Frame");
     this.frame.setAttribute("src", "/newtab");
-    this.frame.setAttribute("loading", "lazy");
+    this.frame.setAttribute("loading", "lazy"); x
     this.frame.setAttribute("id", `frame-${tabCounter}`);
     framesElement.appendChild(this.frame);
 

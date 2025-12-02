@@ -22,8 +22,7 @@ body {
   gap: 5px;
   align-items: center;
   background: #000000;
-}
-
+}x
 #tabGroup {
   top: 0;
   display: flex;
@@ -135,7 +134,7 @@ body {
 .toolbar {
   background: #252525;
   top: 0;
-  height: 70px;
+  height: 60px;
   max-width: 100vw;
   padding-left: 10px;
   padding-right: 10px;

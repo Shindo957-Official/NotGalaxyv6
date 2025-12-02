@@ -39,7 +39,7 @@
 
 /* Track (background) */
 ::-webkit-scrollbar-track {
-  background: #000000ab; /* light gray */
+  background: #363636; /* light gray */
   border-radius: 10px; /* rounded corners */
 }
 

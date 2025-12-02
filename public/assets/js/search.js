@@ -6,6 +6,7 @@ import {
   proxyUV,
 } from "../../lithium.mjs";
 import("../../uv/uv.config.js");
+// holy shit this file is so messy
 
 let iframe;
 let protocol = location.protocol === "https:" ? "wss://" : "ws://";
@@ -15,11 +16,11 @@ if (localStorage.getItem("transportType") == null) {
   localStorage.setItem("transportType", "libcurl");
   transportx = "libcurl";
 } else {
-  transportx = localStorage.getItem("transportType");
+  transportx = localStorage.getItem("transportType"); 
 }
 setTransport(transportx);
 console.log(transportx);
-setWisp(`${protocol}${host}/wisp/`);
+setWisp(`${protocol}${host}/wisp/`); 
 const uvList = ["https://discord.com"];
 document.addEventListener("keyup", async (e) => {
   if (e.key === "Enter" || e.keyCode === 13) {
@@ -49,7 +50,7 @@ document.addEventListener("keyup", async (e) => {
       loadingNotice.style.animation = "noticeHide 0.4s forwards";
     });
     let url = input.value;
-    let proxyType = localStorage.getItem("proxyType"); //Checks for proxy stuff
+    let proxyType = localStorage.getItem("proxyType"); //Checks if link includes geforce
     if (url.includes("nvidia") || url.includes("geforce")) {
       let geforceNotice = document.createElement("div");
       geforceNotice.className = "notice";
@@ -65,7 +66,7 @@ document.addEventListener("keyup", async (e) => {
       });
     } else if (proxyType == null || proxyType == "Auto") {
       proxyType = "Auto";
-      const match = uvList.findIndex((base) => input.value.startsWith(base));
+      const match = uvList.findIndex((base) => input.value.startsWith(base)); // Checks if link includes discord
       if (match == -1) {
         console.log("loading SJ");
         url = await proxySJ(makeURL(input.value));
@@ -75,7 +76,7 @@ document.addEventListener("keyup", async (e) => {
         url = await proxyUV(makeURL(input.value));
         loadingShow("Loading...");
       }
-    } else if (proxyType === "SJ") {
+    } else if (proxyType === "SJ") { // Regular
       url = await proxySJ(makeURL(input.value));
       loadingShow("Loading...");
       console.log("set to SJ");
