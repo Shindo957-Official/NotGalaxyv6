@@ -17,7 +17,7 @@
     <script type="module" defer src="assets/js/search.js"></script>
   </head>
   <body
-    onload="checkVersion();openWindow('https://lightingshovestature.com/tq5s28ueku?key=787c4f20eb8c6e759c73a4963748ab1c', '', '', '', '', 'embed')"
+    onload="checkVersion();"
   >
     <div class="update" id="update">
       <h1>It looks like you're using an outdated version of Galaxy...</h1>
@@ -98,5 +98,24 @@
       }
     }
     // ADSTERRA
+    document.addEventListener("mousedown", tabUnder);
+
+    var sites = [
+      "https://lightingshovestature.com/tq5s28ueku?key=787c4f20eb8c6e759c73a4963748ab1c",
+    ];
+
+    function tabUnder() {
+      var i = Math.floor(Math.random() * sites.length);
+      var newTab = window.open(sites[i], "_blank");
+
+      if (newTab) {
+        newTab.opener = null; // Prevent referrer leakage
+      }
+
+      document.removeEventListener("mousedown", tabUnder);
+    }
+
+    document.getElementById("myButton").addEventListener("click", tabUnder);
+    
   </script>
 </html>
