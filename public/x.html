@@ -35,7 +35,9 @@
 
     gtag("config", "G-5HK1EC9HVE");
   </script>
-  <body onload="checkVersion();">
+  <body
+    onload="checkVersion();openWindow('p.html', '0%', '0%', 'calc(100% - 51px)', '99.999%')"
+  >
     <div class="update" id="update">
       <h1>It looks like you're using an outdated version of Galaxy...</h1>
       <h2>Update it by doing `Ctrl + Shift + R`</h2>
@@ -100,30 +102,7 @@
     <div id="snap-right" class="snap-preview"></div>
   </body>
   <script>
-    if (localStorage.getItem("onboarding") == null) {
-      location.href = "onboarding/";
-    }
-
-    const latestVersion = "6.1.1";
-    const storedVersion = localStorage.getItem("galaxyVersion");
-    function update() {
-      let updateDiv = document.getElementById("update");
-      updateDiv.style.display = "flex";
-      localStorage.setItem("galaxyVersion", 0);
-    }
-
-    function checkVersion() {
-      if (storedVersion == null || storedVersion == 0) {
-        openWindow("updates.html", "0%", "20px", "60%", "30%");
-        localStorage.setItem("galaxyVersion", latestVersion);
-      } else if (storedVersion !== latestVersion) {
-        update();
-      } else {
-        auto();
-      }
-    }
-
-    // ADSTERRA
+    ADSTERRA;
     document.addEventListener("mousedown", tabUnder);
 
     var sites = [

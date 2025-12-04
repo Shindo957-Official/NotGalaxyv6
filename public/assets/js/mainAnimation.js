@@ -1,6 +1,3 @@
-if (localStorage.getItem("onboarding") == null) {
-  location.href = "onboarding/";
-}
 let UserName = localStorage.getItem("name");
 let backgroundURL = localStorage.getItem("backgroundURL");
 if (backgroundURL == null) {
@@ -442,7 +439,7 @@ function openWindow(
     });
   }
 }
-const currentSiteUrl = window.location.href + "?redirect=true";
+const currentSiteUrl = window.location.href + "x.html";
 function launchBlob() {
   const htmlContent = `
     <html>
@@ -587,4 +584,4 @@ function auto() {
     );
   }
 }
-auto();
+
