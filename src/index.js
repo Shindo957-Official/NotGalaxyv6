@@ -142,8 +142,7 @@ import dotenv from "dotenv";
 dotenv.config();
 const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
 fastify.post("/report-bug", async (req, reply) => {
-  const { name, bug } = req.body;
-
+const { name, bug, url } = req.body;
   try {
     const response = await fetch(webhookUrl, {
       method: "POST",
