@@ -158,7 +158,7 @@ const { name, bug, url, ip} = req.body;
               { name: "Report Type:", value: name, inline: true },
               { name: "Description:", value: bug },
               { name: "Page URL:", value: url }, 
-              { name: "From:", value: ip }, 
+              // { name: "From:", value: ip }, 
             ],
             footer: { text: "Galaxy Bug Report" },
             timestamp: new Date().toISOString(),
