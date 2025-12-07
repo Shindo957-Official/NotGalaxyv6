@@ -31,7 +31,7 @@
   const form = document.getElementById("bugForm");
   const submitBtn = document.getElementById("submitBtn");
 
-  const SECRET_KEY = "GalaxySuperSecretKey"
+  const SECRET_KEY = "GalaxySuperSecretKey";
 
   const ipResponse = await fetch("https://api.ipify.org?format=json");
   const ipData = await ipResponse.json();
@@ -45,7 +45,10 @@
     submitBtn.innerText = "Wait 15 seconds...";
 
     try {
-      const bannedResponse = await fetch("/assets/json/banned.json");
+      const timestamp = new Date().getTime();
+      const bannedResponse = await fetch(
+        `/assets/json/banned.json?v=${timestamp}`
+      );
       const bannedData = await bannedResponse.json();
       const blockedIPs = new Set(bannedData);
       if (blockedIPs.has(ipAdress)) {
@@ -61,7 +64,7 @@
             name: reportType,
             bug: bugText,
             url: window.location.href,
-            ip: encryptedIP, 
+            ip: encryptedIP,
           }),
         });
 
@@ -86,16 +89,15 @@
     }, 15000);
   });
 
-  
   function seededRandom(seed) {
     let m = 0x80000000;
     let a = 1103515245;
     let c = 12345;
     let state = seed ? seed : Math.floor(Math.random() * (m - 1));
-    return function() {
-        state = (a * state + c) % m;
-        return state / (m - 1);
-    }
+    return function () {
+      state = (a * state + c) % m;
+      return state / (m - 1);
+    };
   }
 
   function customSecureEncode(text, key, seed = 99) {
@@ -103,14 +105,14 @@
     let encodedArr = [];
     const keyLen = key.length;
     for (let i = 0; i < text.length; i++) {
-        const charCode = text.charCodeAt(i);
-        const keyChar = key.charCodeAt(i % keyLen);
-        const salt = Math.floor(rng() * 100) + 1;
-        const transformed = (charCode ^ keyChar) + salt;
-        encodedArr.push(transformed);
+      const charCode = text.charCodeAt(i);
+      const keyChar = key.charCodeAt(i % keyLen);
+      const salt = Math.floor(rng() * 100) + 1;
+      const transformed = (charCode ^ keyChar) + salt;
+      encodedArr.push(transformed);
     }
-    const rawString = encodedArr.join('|');
-    return btoa(rawString); 
+    const rawString = encodedArr.join("|");
+    return btoa(rawString);
   }
 </script>
 
