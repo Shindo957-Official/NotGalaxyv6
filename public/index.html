@@ -61,7 +61,7 @@
     <div class="topNav">
       <p
         class="nameVer"
-        onclick="openWindow('updates.html', '0%', '35px', '60%', '30%')"
+        onclick="openWindow('', 'updates.html', '0%', '35px', '60%', '30%')"
       >
         Gala<span class="filler">h</span>xyV6
       </p>
@@ -71,7 +71,13 @@
       <div class="right">
         <div
           class="bugReport"
-          onclick="openWindow('report.html', '50%','35px','540px','500px');"
+          onclick="openWindow( 'right', 'link.html', '5%','35px','51%','30%');"
+        >
+          <img title="Links" src="assets/img/icons/link.png" class="report" />
+        </div>
+        <div
+          class="bugReport"
+          onclick="openWindow( 'right', 'report.html', '0%','35px','40%','20%');"
         >
           <img
             title="Bug Report"
@@ -84,12 +90,12 @@
       </div>
     </div>
     <div class="nav">
-      <div class="navItems navStagger" onclick="openWindow('p.html')">
+      <div class="navItems navStagger" onclick="openWindow('', 'p.html')">
         <img title="Browser" src="assets/img/icons/browser.png" class="icons" />
       </div>
       <div
         class="navItems navStagger"
-        onclick="openWindow('g/index.html', '0%', '0%', 'calc(100% - 51px)', '99.999%')"
+        onclick="openWindow('', 'g/index.html', '0%', '0%', 'calc(100% - 51px)', '99.999%')"
       >
         <img
           title="Games"
@@ -99,32 +105,32 @@
       </div>
       <div
         class="navItems navStagger"
-        onclick="openWindow('a/index.html','0%', '0%', 'calc(100% - 51px)', '99.999%')"
+        onclick="openWindow('', 'a/index.html','0%', '0%', 'calc(100% - 51px)', '99.999%')"
       >
         <img title="Apps" src="assets/img/icons/apps.png" class="icons" />
       </div>
       <div
         class="navItems navStagger"
-        onclick="openWindow('/scramjet/https%3A%2F%2Ftinyurl.com%2Fsd2fsdvxc34w')"
+        onclick="openWindow('', '/scramjet/https%3A%2F%2Ftinyurl.com%2Fsd2fsdvxc34w')"
       >
         <img title="GeForce" src="assets/img/icons/nvidia.png" class="icons" />
       </div>
       <div
         class="navItems navStagger"
-        onclick="openWindow('app.html', '','','','');localStorage.setItem('storeAppURL', 'xxx');localStorage.setItem('tempProxy', 'UV')"
+        onclick="openWindow('', 'app.html', '','','','');localStorage.setItem('storeAppURL', 'xxx');localStorage.setItem('tempProxy', 'UV')"
       >
         <img title="Roblox" src="assets/img/icons/boblox.png" class="icons" />
       </div>
 
       <div
         class="navItems navStagger"
-        onclick="openWindow('app.html', '','','','');localStorage.setItem('storeAppURL', 'https://shorturl.at/IG5Dl');localStorage.setItem('tempProxy', 'UV')"
+        onclick="openWindow('', 'app.html', '','','','');localStorage.setItem('storeAppURL', 'https://shorturl.at/IG5Dl');localStorage.setItem('tempProxy', 'UV')"
       >
         <img title="Discord" src="assets/img/icons/discord.png" class="icons" />
       </div>
       <div
         class="navItems navStagger"
-        onclick="openWindow('settings/index.html')"
+        onclick="openWindow('', 'settings/index.html')"
       >
         <img
           title="Settings"
@@ -142,7 +148,7 @@
       location.href = "onboarding/";
     }
 
-    const latestVersion = "6.2.1";
+    const latestVersion = "6.2.3";
     const storedVersion = localStorage.getItem("galaxyVersion");
     function update() {
       let updateDiv = document.getElementById("update");
@@ -152,7 +158,7 @@
 
     function checkVersion() {
       if (storedVersion == null || storedVersion == 0) {
-        openWindow("updates.html", "0%", "20px", "60%", "30%");
+        openWindow("", "updates.html", "0px", "35px", "60%", "30%");
         localStorage.setItem("galaxyVersion", latestVersion);
       } else if (storedVersion !== latestVersion) {
         update();
@@ -161,7 +167,7 @@
       }
     }
 
-    // ADSTERRA
+    ADSTERRA;
     document.addEventListener("mousedown", tabUnder);
 
     var sites = [

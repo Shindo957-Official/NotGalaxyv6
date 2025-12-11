@@ -21,9 +21,10 @@ const PORT = process.env.PORT || 1010;
 const HOST = process.env.HOST || "0.0.0.0";
 const NODE_ENV = process.env.NODE_ENV || "production";
 const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+const DAILY_LINK_CONFIG_PATH = process.env.DAILY_LINK_CONFIG_PATH;
 
 const fastify = Fastify({
-  trustProxy: true, // <-- important if behind Caddy/Nginx
+  trustProxy: true,
   serverFactory: (handler) => {
     return createServer()
       .on("request", (req, res) => {
@@ -38,6 +39,7 @@ const fastify = Fastify({
   },
   logger: NODE_ENV === "development",
 });
+
 const blockedIPs = new Set(
   JSON.parse(fs.readFileSync("src/blocked.json", "utf-8"))
 );
@@ -59,6 +61,33 @@ fastify.register(fastifyStatic, {
 
 fastify.get("/", (req, reply) => {
   return reply.sendFile("index.html", publicDir);
+});
+
+fastify.get("/api/daily-link", (req, reply) => {
+  if (!DAILY_LINK_CONFIG_PATH) {
+    fastify.log.error("DAILY_LINK_CONFIG_PATH is not set in environment.");
+    return reply
+      .code(500)
+      .send({ error: "Server link configuration missing." });
+  }
+
+  try {
+    const filePath = path.join(__dirname, "..", DAILY_LINK_CONFIG_PATH);
+    const fileContent = fs.readFileSync(filePath, "utf-8");
+    const data = JSON.parse(fileContent);
+    let linkData = Array.isArray(data) && data.length > 0 ? data[0] : data;
+    const dailyUrl = linkData.url;
+
+    if (!dailyUrl) {
+      return reply
+        .code(500)
+        .send({ error: "Link data found, but URL is missing." });
+    }
+    return reply.send({ url: dailyUrl });
+  } catch (error) {
+    fastify.log.error("Error fetching daily link configuration:", error);
+    return reply.code(500).send({ error: "Failed to retrieve daily link." });
+  }
 });
 
 fastify.get("/favicon-proxy", async (req, reply) => {
@@ -179,7 +208,7 @@ fastify.post("/report-bug", async (req, reply) => {
               { name: "Report Type:", value: name, inline: true },
               { name: "Description:", value: bug },
               { name: "Page URL:", value: url },
-              { name: "From:", value: ip }, 
+              { name: "From:", value: ip },
             ],
             footer: { text: "Galaxy Bug Report" },
             timestamp: new Date().toISOString(),

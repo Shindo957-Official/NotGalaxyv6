@@ -69,6 +69,7 @@ let spawnOffset = 0;
 const offsetIncrement = 30;
 const maxOffset = 300;
 function openWindow(
+  windowPosition,
   windowSrc,
   windowLeft,
   windowTop,
@@ -93,16 +94,19 @@ function openWindow(
   if (!windowLeft && !windowTop) {
     windowEl.style.left = `calc(19% + ${spawnOffset}px)`;
     windowEl.style.top = `calc(19% + ${spawnOffset}px)`;
-
     spawnOffset += offsetIncrement;
-
     if (spawnOffset > maxOffset) {
       spawnOffset = 0;
     }
-  } else {
+    windowPosition = windowPosition;
+  } 
+  console.log(windowPosition)
+   if (windowPosition == "left") {
     windowEl.style.left = windowLeft || "19%";
-    windowEl.style.top = windowTop || "19%";
+  } else if (windowPosition == "right"){
+    windowEl.style.right = windowLeft || "19%";
   }
+  windowEl.style.top = windowTop || "19%";
 
   windowEl.innerHTML = `
     <div class="windowTop">
