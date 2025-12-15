@@ -7,15 +7,15 @@ import {
   proxyUV,
 } from "../../lithium.mjs";
 
-const PINNED_GAMES_KEY = "pinnedGameNames";
+const pinnedGames = "pinnedGameNames";
 const iframe = document.getElementById("frame");
 function getPinnedGames() {
-  const pinnedNames = localStorage.getItem(PINNED_GAMES_KEY);
+  const pinnedNames = localStorage.getItem(pinnedGames);
   return pinnedNames ? JSON.parse(pinnedNames) : [];
 }
 
 function savePinnedGames(names) {
-  localStorage.setItem(PINNED_GAMES_KEY, JSON.stringify(names));
+  localStorage.setItem(pinnedGames, JSON.stringify(names));
 }
 
 function togglePinGame(name) {

@@ -327,16 +327,16 @@ if (backgroundURL == null) {
   localStorage.setItem("backgroundURL", "../img/bg3.png");
 }
 
-const DB_NAME = "WebsiteSettingsDB";
-const STORE_NAME = "backgrounds";
+const dbName = "WebsiteSettingsDB";
+const storeName = "backgrounds";
 const KEY = "userBackground";
 
 function openWebsiteDB() {
   return new Promise(resolve => {
-    const req = indexedDB.open(DB_NAME, 1);
+    const req = indexedDB.open(dbName, 1);
 
     req.onupgradeneeded = () =>
-      req.result.createObjectStore(STORE_NAME);
+      req.result.createObjectStore(storeName);
 
     req.onsuccess = () =>
       resolve(req.result);
@@ -346,8 +346,8 @@ function openWebsiteDB() {
 async function useStore(mode, cb) {
   const db = await openWebsiteDB();
   return new Promise(resolve => {
-    const tx = db.transaction(STORE_NAME, mode);
-    const store = tx.objectStore(STORE_NAME);
+    const tx = db.transaction(storeName, mode);
+    const store = tx.objectStore(storeName);
     const req = cb(store);
     tx.oncomplete = () => resolve(req.result);
   });

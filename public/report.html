@@ -95,7 +95,6 @@
           document.getElementById("sent").innerText =
             "Report sent! You can view your report at https://tinyurl.com/galaxyiscool";
           document.getElementById("failed").innerText = "";
-          // Clear form fields on successful submission
           document.getElementById("bug").value = '';
           document.getElementById("reportType").value = 'Bug';
         } else {
@@ -142,7 +141,6 @@
 </script>
 
 <style>
-  /* Reset box model for easier layout management */
   * {
     box-sizing: border-box;
   }
@@ -153,9 +151,9 @@
     justify-content: center;
     align-items: center;
     background: #f4f6f8;
-    min-height: 100vh; /* Use min-height to ensure full height, but allow content overflow */
+    min-height: 100vh; 
     margin: 0;
-    padding: 20px; /* Add padding for small screen breathing room */
+    padding: 20px;
     flex-direction: column;
   }
 
@@ -163,9 +161,9 @@
     background: #fff;
     padding: 25px 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
-    width: 100%; /* Default to 100% width for mobile-first */
-    max-width: 400px; /* Max width for desktop/tablet */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    width: 100%; 
+    max-width: 400px; 
   }
 
   #bugForm h2 {
@@ -174,11 +172,10 @@
     font-size: 24px;
     color: #333;
     text-align: center;
-    border-bottom: 1px solid #eee; /* Subtle separator */
+    border-bottom: 1px solid #eee;
     padding-bottom: 15px;
   }
 
-  /* Style for warning and tip messages */
   .warning-message {
     color: red;
     font-weight: 600;
@@ -186,27 +183,27 @@
     border: 1px solid red;
     padding: 10px;
     border-radius: 8px;
-    background-color: #ffeaea; /* Very light red background, keep original color */
+    background-color: #ffeaea; 
   }
   
   .tip-message {
-    color: #666; /* Slightly muted color for tips */
+    color: #666; 
     font-size: 13px;
     margin-top: 20px;
     padding-top: 10px;
-    border-top: 1px dashed #ddd; /* Dashed line for visual separation */
+    border-top: 1px dashed #ddd;
   }
 
   #bugForm label {
     font-weight: 600;
-    margin-bottom: 8px; /* Increased margin for better spacing */
+    margin-bottom: 8px; 
     display: block;
     color: #444;
-    line-height: 1.4; /* Better readability */
+    line-height: 1.4;
   }
 
   .highlight {
-    color: #444; /* Keep text color for emphasis */
+    color: #444; 
     font-weight: 800;
   }
 
@@ -216,28 +213,28 @@
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    font-size: 16px; /* Slightly larger font for better touch target */
+    font-size: 16px; 
     font-family: inherit;
-    margin-bottom: 20px; /* Increased margin for better separation */
+    margin-bottom: 20px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   #bugForm textarea {
-    resize: vertical; /* Allow vertical resizing, prevents horizontal layout issues */
+    resize: vertical;
     min-height: 100px;
   }
 
   #bugForm select:focus,
   #bugForm textarea:focus {
     border-color: #414141;
-    box-shadow: 0 0 0 2px rgba(65, 65, 65, 0.2); /* Focus ring */
+    box-shadow: 0 0 0 2px rgba(65, 65, 65, 0.2); 
     outline: none;
   }
 
   #bugForm button {
     width: 100%;
     padding: 12px;
-    background: #414141; /* Darker grey for a modern submit button */
+    background: #414141; 
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -248,8 +245,8 @@
   }
 
   #bugForm button:hover:not(:disabled) {
-    background: #2a2a2a; /* Even darker grey on hover */
-    transform: translateY(-1px); /* Subtle lift effect */
+    background: #2a2a2a; 
+    transform: translateY(-1px); 
   }
   
   #bugForm button:disabled {
@@ -280,7 +277,6 @@
     text-align: center;
   }
   
-  /* Media Query for Responsiveness */
   @media (max-width: 400px) {
     #bugForm {
       padding: 20px;
