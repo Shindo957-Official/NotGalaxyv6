@@ -47,9 +47,6 @@ importers:
       gsap:
         specifier: ^3.13.0
         version: 3.13.0
-      libcurl-transport:
-        specifier: link:/@mercuryworkshop/libcurl-transport
-        version: link:../../../../../../../@mercuryworkshop/libcurl-transport
 
 packages:
 
