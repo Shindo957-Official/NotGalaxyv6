@@ -45,7 +45,7 @@ function updateName() {
 
 
 function updateGlassmorphismDarkness() {
-let opacityValue = localStorage.getItem("glassDarknessStore");
+let opacityValue = localStorage.getItem("glassDarknessStore") || "0.432";
   const newGlassmorphismBG = `rgba(14, 13, 13, ${opacityValue})`;
   document.documentElement.style.setProperty(
     "--glassmorphismBG",

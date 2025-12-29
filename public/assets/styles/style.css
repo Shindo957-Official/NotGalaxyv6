@@ -150,10 +150,10 @@ body {
   border: 2px solid rgb(153, 153, 153);
   border-radius: 10px;
   cursor: pointer;
+  width: 257px;
+  object-fit: fill;
 }
-.bgselect {
-  transition: opacity 0.3s ease;
-}
+
 .upload {
   border: 0px;
   max-width: 60%;
@@ -169,6 +169,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.bgselect {
+  transition: opacity 0.3s ease;
 }
 .continueButton {
   height: 40px;

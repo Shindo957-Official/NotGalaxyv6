@@ -329,7 +329,7 @@ if (backgroundURL == null) {
 
 const dbName = "WebsiteSettingsDB";
 const storeName = "backgrounds";
-const KEY = "userBackground";
+const bgKey = "userBackground";
 
 function openWebsiteDB() {
   return new Promise(resolve => {
@@ -354,12 +354,12 @@ async function useStore(mode, cb) {
 }
 
 async function setBackground(fileBlob) {
-  await useStore("readwrite", s => s.put(fileBlob, KEY));
+  await useStore("readwrite", s => s.put(fileBlob, bgKey));
   await applyBackgroundFromDB();
 }
 
 async function applyBackgroundFromDB() {
-  const blob = await useStore("readonly", s => s.get(KEY));
+  const blob = await useStore("readonly", s => s.get(bgKey));
   if (blob) {
     const url = URL.createObjectURL(blob);
     localStorage.setItem("backgroundURL", url);
