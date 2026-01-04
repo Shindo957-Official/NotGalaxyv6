@@ -119,5 +119,11 @@
         <button class="continueButton" onclick="ghost3()">Next</button>
       </div>
     </div>
+    <script>
+      if (localStorage.getItem("onboarding") == null) {
+      } else {
+        location.href = "../";
+      }
+    </script>
   </body>
 </html>
