@@ -108,7 +108,7 @@ function renderGames(games) {
           });
         } else if (game.file) {
           let location = window.location.host;
-          var fil = location + game.file;
+          var fil = "https://" + location + game.file;
           openApp(fil, "SJ");
           iframe.style.zIndex = "1";
           iframe.style.opacity = "1";
