@@ -6,7 +6,7 @@ import {
   proxyUV,
 } from "../../lithium.mjs";
 import("../../glass/glassJS.config.js");
-
+console.log("search.js loaded");
 let iframe;
 let transportx;
 let activeWisp;

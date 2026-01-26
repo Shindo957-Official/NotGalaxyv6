@@ -1,5 +1,6 @@
 import { makeURL, proxySJ, proxyUV } from "../../lithium.mjs";
 import { openurl, loadingShow, loadingHide } from "/assets/js/openapps.js";
+console.log("navFunctions.js loaded");
 const back = document.getElementById("goBack");
 const forward = document.getElementById("goForward");
 const reload = document.getElementById("reload");

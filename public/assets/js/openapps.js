@@ -5,7 +5,7 @@ import {
   proxySJ,
   proxyUV,
 } from "../../lithium.mjs";
-
+console.log("openapps.js loaded");
 export async function openurl(url, proxytype) {
   let tabNumber = activeTabId.replace("tab", "");
   let iframe = document.getElementById("frame" + tabNumber);
