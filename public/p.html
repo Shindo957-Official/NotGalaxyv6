@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -34,7 +34,13 @@
   <body id="body">
     <div id="nav">
       <div id="tabGroup"></div>
-      <div id="plusdiv" onclick="newTab(); updatewisp();">
+      <div
+        id="plusdiv"
+        onclick="
+          newTab();
+          updatewisp();
+        "
+      >
         <p class="plus">+</p>
       </div>
     </div>
@@ -152,7 +158,10 @@
       <div
         class="bookmarklets"
         id="dcloading"
-        onclick="openurl('https://shorturl.at/IG5Dl', 'UV'); loadingbar();"
+        onclick="
+          openurl('https://shorturl.at/IG5Dl', 'UV');
+          loadingbar();
+        "
       >
         <span class="filler">f</span> Disc<span class="filler">f</span>ord
       </div>

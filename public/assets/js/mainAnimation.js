@@ -39,7 +39,7 @@ async function applyBackgroundFromDB() {
     localStorage.setItem("backgroundURL", url);
     document.documentElement.style.setProperty(
       "--backgroundURL",
-      `url(${url})`
+      `url(${url})`,
     );
   }
 }
@@ -50,7 +50,7 @@ async function applyBackgroundFromDB() {
   } else {
     document.documentElement.style.setProperty(
       "--backgroundURL",
-      `url(${backgroundURL})`
+      `url(${backgroundURL})`,
     );
   }
 })();
@@ -58,7 +58,7 @@ async function applyBackgroundFromDB() {
 gsap.fromTo(
   ".navStagger",
   { y: 50, opacity: 0 },
-  { duration: 0.4, y: 0, opacity: 1, stagger: 0.05 }
+  { duration: 0.4, y: 0, opacity: 1, stagger: 0.05 },
 );
 
 document.querySelector(".userName").textContent = userName;
@@ -74,7 +74,7 @@ function openWindow(
   windowTop,
   windowHeight,
   windowWidth,
-  windowType
+  windowType,
 ) {
   const snapLeft = document.getElementById("snap-left");
   const snapRight = document.getElementById("snap-right");
@@ -456,7 +456,6 @@ function openWindow(
     windowEl.style.top = rect.top + "px";
     windowEl.style.opacity = "0";
 
-
     const preview = document.createElement("div");
     preview.className = "minimizedPreview";
     preview.innerHTML = windowEl.innerHTML;
@@ -567,7 +566,7 @@ function aboutBlank() {
 }
 
 const dock = document.querySelector(".nav");
-const icons = [...document.querySelectorAll(".icons")];
+let icons = [];
 
 let mouseX = null;
 
@@ -591,10 +590,16 @@ function softFalloff(t) {
 
 function imacEffect() {
   requestAnimationFrame(imacEffect);
-
   const dockRect = dock.getBoundingClientRect();
+  
+  const currentIcons = document.querySelectorAll(".icons");
 
-  icons.forEach((icon) => {
+  currentIcons.forEach((icon) => {
+    if (icon._scale === undefined) {
+      icon._scale = 1;
+      icon._targetScale = 1;
+    }
+
     const iconRect = icon.getBoundingClientRect();
     const iconCenter = iconRect.left - dockRect.left + iconRect.width / 2;
 
@@ -605,7 +610,6 @@ function imacEffect() {
     const range = 90;
 
     let influence = Math.max(0, 1 - distance / range);
-
     influence = softFalloff(influence);
 
     icon._targetScale = minScale + (maxScale - minScale) * influence;
@@ -615,14 +619,12 @@ function imacEffect() {
 
     const delta = icon._targetScale - icon._scale;
     icon._scale += delta * stiffness;
-    icon._scale -= icon._scale * damping * 0.001;
-
+    
+    // Applying the transformation
     icon.style.transform = `scale(${icon._scale})`;
   });
-}
+}updateTime();
 imacEffect();
-updateTime();
-
 function updateTime() {
   const now = new Date();
   const timeString = now.toLocaleTimeString();
@@ -637,7 +639,130 @@ function auto() {
   if (localStorage.getItem("autoAbout") === "true") {
     aboutBlank();
     location.replace(
-      "https://lightingshovestature.com/tq5s28ueku?key=787c4f20eb8c6e759c73a4963748ab1c"
+      "https://lightingshovestature.com/tq5s28ueku?key=787c4f20eb8c6e759c73a4963748ab1c",
     );
   }
+}
+const nav = document.getElementById("nav");
+const menu = document.getElementById("options");
+let counter = 0;
+let mouseXpos = null;
+
+// --- Existing UI Logic ---
+document.addEventListener("mousemove", (event) => {
+  mouseXpos = event.clientX;
+  if (counter == 0) {
+    menu.style.left = mouseXpos + "px";
+  }
+});
+
+document.addEventListener("click", () => {
+  if (counter == 1) {
+    menu.style.bottom = "-40px";
+    menu.style.opacity = "0";
+    menu.style.zIndex = "-10000000";
+    counter = 0;
+    menu.style.transitionDuration = "0s";
+  }
+});
+
+nav.addEventListener("contextmenu", (e) => {
+  menu.style.transitionDuration = "0s";
+  e.preventDefault();
+  counter = counter === 0 ? 1 : 0;
+
+  if (counter == 1) {
+    menu.style.transitionDuration = "0.3s";
+    menu.style.bottom = "50px";
+    menu.style.opacity = "1";
+    menu.style.zIndex = "10000000";
+  } else {
+    menu.style.bottom = "0px";
+    menu.style.opacity = "0";
+    menu.style.zIndex = "-10000000";
+  }
+});
+
+let appCounter = parseInt(localStorage.getItem("appCounter")) || 0;
+let savedApps = JSON.parse(localStorage.getItem("customApps")) || [];
+
+window.onload = () => {
+  savedApps.forEach((app) => {
+    makeapp(app.id, app.name, app.url, app.icon);
+  });
+};
+
+function submitApp() {
+  const name = document.getElementById("appName").value;
+  const icon = document.getElementById("appIcon").value;
+  const url = document.getElementById("appUrl").value;
+
+  if (name && url) {
+    closeModal();
+    addapp(name, url, icon);
+  } else {
+    alert("Please fill in the Name and URL!");
+  }
+}
+
+function addapp(name, url, icon) {
+  appCounter++;
+  const appId = "custom" + appCounter;
+
+  const newApp = {
+    id: appId,
+    name: name,
+    url: url,
+    icon: icon || "assets/img/icons/custom.png",
+  };
+
+  savedApps.push(newApp);
+  localStorage.setItem("customApps", JSON.stringify(savedApps));
+  localStorage.setItem("appCounter", appCounter.toString());
+
+  makeapp(appId, name, url, newApp.icon);
+}
+
+function makeapp(id, name, url, icon) {
+  let appDiv = document.createElement("div");
+  appDiv.className = "navItems navStagger";
+  appDiv.id = id;
+  appDiv.onclick = function () {
+    if (typeof openWindow === "function") {
+      openWindow("", "app.html", "", "", "", "");
+    }
+    localStorage.setItem("storeAppURL", url);
+    localStorage.setItem("tempProxy", "SJ");
+  };
+  appDiv.oncontextmenu = function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const confirmDelete = confirm(`Do you want to delete "${name}"?`);
+
+    if (confirmDelete) {
+      deleteApp(id);
+    }
+  };
+
+  appDiv.innerHTML = `<img title="${name}" src="${icon}" class="icons" />`;
+  nav.appendChild(appDiv);
+  appDiv.style.opacity = "1";
+}
+function showApp() {
+  document.getElementById("appModal").style.opacity = "1";
+  document.getElementById("appModal").style.zIndex = "10000000";
+  document.getElementById("modal-content").style.transform = "scale(1)";
+}
+
+function closeModal() {
+  document.getElementById("appModal").style.opacity = "0";
+  document.getElementById("appModal").style.zIndex = "-10000000";
+  document.getElementById("modal-content").style.transform = "scale(0.1)";
+}
+function deleteApp(id) {
+  const element = document.getElementById(id);
+  if (element) element.remove();
+  savedApps = savedApps.filter((app) => app.id !== id);
+  localStorage.setItem("customApps", JSON.stringify(savedApps));
 }

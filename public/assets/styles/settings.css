@@ -257,13 +257,13 @@ button:hover {
 
 #sideNav a:hover,
 #sideNav a.active {
-  background: rgba(65, 65, 65, 0.322); /* translucent hover */
+  background: rgba(65, 65, 65, 0.322); 
   color: #ffffff;
   transform: translateX(-3px);
 }
 .inputStuff {
-  background: rgba(255, 255, 255, 0.05); /* translucent */
-  backdrop-filter: blur(10px); /* frosted glass effect */
+  background: rgba(255, 255, 255, 0.05); 
+  backdrop-filter: blur(10px); 
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   padding: 12px 16px;

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <!--TEST-->
   <head>
@@ -36,7 +36,7 @@
 
     gtag("config", "G-T9C6WKFHGD");
   </script>
-  <body onload="checkVersion();">
+  <body onload="checkVersion()">
     <div class="update" id="update">
       <h1>It looks like you're using an outdated version of Galaxy...</h1>
       <h2>Update it by doing `Ctrl + Shift + R`</h2>
@@ -56,7 +56,7 @@
       <div class="right">
         <div
           class="bugReport"
-          onclick="openWindow( 'right', 'link.html', '0%','35px','40%','20%');"
+          onclick="openWindow('right', 'link.html', '0%', '35px', '40%', '20%')"
         >
           <img
             title="Bug Report"
@@ -66,7 +66,9 @@
         </div>
         <div
           class="bugReport"
-          onclick="openWindow( 'right', 'report.html', '0%','35px','40%','20%');"
+          onclick="
+            openWindow('right', 'report.html', '0%', '35px', '40%', '20%')
+          "
         >
           <img
             title="Bug Report"
@@ -78,13 +80,41 @@
         <div id="timeDisplay" class="timeDisplay"></div>
       </div>
     </div>
-    <div class="nav">
+    <div id="appModal" class="modal-overlay">
+      <div class="modal-content" id="modal-content">
+        <h2>Add New App</h2>
+        <input type="text" id="appName" placeholder="App Name" />
+        <input type="text" id="appIcon" placeholder="Icon URL (optional)" />
+        <input
+          type="text"
+          id="appUrl"
+          placeholder="App URL (e.g., https://...)"
+        />
+        <div class="modal-actions">
+          <button onclick="closeModal()">Cancel</button>
+          <button class="primary" onclick="submitApp()">Create App</button>
+        </div>
+      </div>
+    </div>
+    <div class="options" id="options">
+      <div id="menuOptions" onclick="showApp()"><p>Add App</p></div>
+    </div>
+    <div class="nav" id="nav">
       <div class="navItems navStagger" onclick="openWindow('', 'p.html')">
         <img title="Browser" src="assets/img/icons/browser.png" class="icons" />
       </div>
       <div
         class="navItems navStagger"
-        onclick="openWindow('', 'g/index.html', '0%', '0%', 'calc(100% - 51px)', '99.999%')"
+        onclick="
+          openWindow(
+            '',
+            'g/index.html',
+            '0%',
+            '0%',
+            'calc(100% - 51px)',
+            '99.999%',
+          )
+        "
       >
         <img
           title="Games"
@@ -94,32 +124,60 @@
       </div>
       <div
         class="navItems navStagger"
-        onclick="openWindow('', 'a/index.html','0%', '0%', 'calc(100% - 51px)', '99.999%')"
+        onclick="
+          openWindow(
+            '',
+            'a/index.html',
+            '0%',
+            '0%',
+            'calc(100% - 51px)',
+            '99.999%',
+          )
+        "
       >
         <img title="Apps" src="assets/img/icons/apps.png" class="icons" />
       </div>
       <div
         class="navItems navStagger"
-        onclick="openWindow('', '/scramjet/https%3A%2F%2Ftinyurl.com%2Fsd2fsdvxc34w')"
+        onclick="
+          openWindow('', '/scramjet/https%3A%2F%2Ftinyurl.com%2Fsd2fsdvxc34w')
+        "
       >
         <img title="GeForce" src="assets/img/icons/nvidia.png" class="icons" />
       </div>
       <div
         class="navItems navStagger"
-        onclick="openWindow('', 'app.html', '','','','');localStorage.setItem('storeAppURL', 'xz');localStorage.setItem('tempProxy', 'UV')"
+        onclick="
+          openWindow('', 'app.html', '', '', '', '');
+          localStorage.setItem('storeAppURL', 'xz');
+          localStorage.setItem('tempProxy', 'UV');
+        "
       >
         <img title="Roblox" src="assets/img/icons/boblox.png" class="icons" />
       </div>
 
       <div
         class="navItems navStagger"
-        onclick="openWindow('', 'app.html', '','','','');localStorage.setItem('storeAppURL', 'https://shorturl.at/IG5Dl');localStorage.setItem('tempProxy', 'UV')"
+        onclick="
+          openWindow('', 'app.html', '', '', '', '');
+          localStorage.setItem('storeAppURL', 'https://shorturl.at/IG5Dl');
+          localStorage.setItem('tempProxy', 'UV');
+        "
       >
         <img title="Discord" src="assets/img/icons/discord.png" class="icons" />
       </div>
       <div
         class="navItems navStagger"
-        onclick="openWindow('', 'settings/index.html', '0', '0', 'calc(100% - 51px)', '99.999%')"
+        onclick="
+          openWindow(
+            '',
+            'settings/index.html',
+            '0',
+            '0',
+            'calc(100% - 51px)',
+            '99.999%',
+          )
+        "
       >
         <img
           title="Settings"
@@ -155,7 +213,7 @@
         auto();
       }
     }
-    //ADSTERRA
+    /*ADSTERRA
     document.addEventListener("mousedown", tabUnder);
 
     var sites = [
@@ -173,6 +231,6 @@
       document.removeEventListener("mousedown", tabUnder);
     }
 
-    document.getElementById("myButton").addEventListener("click", tabUnder);
+    document.getElementById("myButton").addEventListener("click", tabUnder); */
   </script>
 </html>
