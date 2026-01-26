@@ -36,7 +36,7 @@
 
     gtag("config", "G-T9C6WKFHGD");
   </script>
-  <body onload="checkVersion()">
+  <body>
     <div class="update" id="update">
       <h1>It looks like you're using an outdated version of Galaxy...</h1>
       <h2>Update it by doing `Ctrl + Shift + R`</h2>
@@ -44,7 +44,7 @@
     <div class="topNav">
       <p
         class="nameVer"
-        onclick="openWindow('left', 'updates.html', '0%', '35px', '60%', '30%')"
+        onclick="openWindow('right', 'link.html', '0%', '35px', '40%', '20%')"
       >
         Gala<span class="filler">h</span>xyV6
       </p>
@@ -189,30 +189,16 @@
     </div>
     <div id="snap-left" class="snap-preview"></div>
     <div id="snap-right" class="snap-preview"></div>
+
+    <div class="myButton"></div>
   </body>
+  <script src="assets/js/mainAnimation.js"></script>
+
   <script>
     if (localStorage.getItem("onboarding") == null) {
       location.href = "onboarding/";
     }
 
-    const latestVersion = "6.4";
-    const storedVersion = localStorage.getItem("galaxyVersion");
-    function update() {
-      let updateDiv = document.getElementById("update");
-      updateDiv.style.display = "flex";
-      localStorage.setItem("galaxyVersion", 0);
-    }
-
-    function checkVersion() {
-      if (storedVersion == null || storedVersion == 0) {
-        openWindow("left", "updates.html", "0px", "35px", "60%", "30%");
-        localStorage.setItem("galaxyVersion", latestVersion);
-      } else if (storedVersion !== latestVersion) {
-        update();
-      } else {
-        auto();
-      }
-    }
     /*ADSTERRA*/
     document.addEventListener("mousedown", tabUnder);
 

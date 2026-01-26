@@ -766,3 +766,25 @@ function deleteApp(id) {
   savedApps = savedApps.filter((app) => app.id !== id);
   localStorage.setItem("customApps", JSON.stringify(savedApps));
 }
+    const latestVersion = "6.4";
+    const storedVersion = localStorage.getItem("galaxyVersion");
+    function update() {
+      let updateDiv = document.getElementById("update");
+      updateDiv.style.display = "flex";
+      localStorage.setItem("galaxyVersion", 0);
+    }
+
+    function checkVersion() {
+      console.log("Checking version...");
+      if (storedVersion == null || storedVersion == 0) {
+        openWindow("left", "updates.html", "0px", "35px", "60%", "30%");
+        console.log("Setting version to latest");
+
+        localStorage.setItem("galaxyVersion", latestVersion);
+      } else if (storedVersion !== latestVersion) {
+        update();
+      } else {
+        auto();
+      }
+    }
+    checkVersion();
