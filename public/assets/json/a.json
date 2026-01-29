@@ -163,5 +163,11 @@
     "url": "https://www.y8.com/",
     "image": "25.png",
     "genre": "Other"
+  },
+  {
+    "name": "Flixer",
+    "url": "https://flixer.sh/",
+    "image": "flixer.webp",
+    "genre": "Streaming"
   }
 ]
