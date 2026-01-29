@@ -28,6 +28,10 @@ fetch("/assets/json/a.json")
       `;
 
       gameElement.addEventListener("click", async () => {
+        if (game.blank) {
+          window.open(game.url, '_blank');
+          return;
+        }
         if (game.url) {
           var ute = game.url;
           let xt;

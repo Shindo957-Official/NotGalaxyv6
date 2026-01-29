@@ -169,6 +169,6 @@
     "url": "https://flixer.sh/",
     "image": "flixer.webp",
     "genre": "Streaming",
-    "type": "UV"
+    "blank": true
   }
 ]
