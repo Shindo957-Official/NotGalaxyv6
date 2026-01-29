@@ -72,12 +72,14 @@ function renderGames(games) {
       ? "/assets/img/icons/close.png"
       : "/assets/img/icons/pin.png";
     const pinTitle = isPinned ? "Unpin" : "Pin";
+    const imageValue = game.image || '';
+    const imageSrc = imageValue.startsWith('/') || imageValue.startsWith('http') ? imageValue : `/assets/img/gimg/${imageValue}`;
     gameElement.innerHTML = `
         <div class="innergame gameStagger">
         <div class="gamecontainer">
-            <img src="/assets/img/gimg/${game.image}" alt="${game.name}" class="cards" loading="lazy">
+            <img src="${imageSrc}" alt="${game.name}" class="cards" loading="lazy">
             <h3 class="cardname">${game.name}</h3>
-            <h2 class="cardgenre">${game.genre}</h2>
+            <h2 class="cardgenre">${game.genre || ''}</h2>
             <img class="pin-btn" title="${pinTitle}" data-name="${gameName}" src="${pinIcon}">
         </div>
         </div>
