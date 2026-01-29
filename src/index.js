@@ -168,7 +168,7 @@ fastify.post("/report-bug", async (req, reply) => {
               { name: "Page URL:", value: url },
               { name: "From:", value: ip },
             ],
-            footer: { text: "Galaxy Bug Report" },
+            footer: { text: "Project Shindo Bug Report" },
             timestamp: new Date().toISOString(),
           },
         ],

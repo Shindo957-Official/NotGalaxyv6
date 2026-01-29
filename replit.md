@@ -1,7 +1,7 @@
-# GalaxyV6
+# Project Shindo
 
 ## Overview
-GalaxyV6 is a web-based application that provides a desktop-like interface with browser proxy functionality. It's built with Fastify for the backend and serves static HTML/CSS/JS files.
+Project Shindo is a web-based application that provides a desktop-like interface with browser proxy functionality. It's built with Fastify for the backend and serves static HTML/CSS/JS files.
 
 ## Project Structure
 - `src/index.js` - Main Fastify server entry point
