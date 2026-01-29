@@ -168,6 +168,7 @@
     "name": "Flixer",
     "url": "https://flixer.sh/",
     "image": "flixer.webp",
-    "genre": "Streaming"
+    "genre": "Streaming",
+    "type": "UV"
   }
 ]
